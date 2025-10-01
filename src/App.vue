@@ -1,7 +1,7 @@
 <template>
   <div class="relative min-h-screen custom-bg">
     <!-- Video overlay -->
-    <video
+    <!-- <video
       autoplay
       loop
       muted
@@ -9,27 +9,47 @@
       class="absolute top-0 left-0 w-full h-full object-cover z-0 opacity-30"
     >
       <source src="@/assets/flare.mp4" type="video/mp4" />
-    </video>
+    </video> -->
 
     <!-- Nội dung -->
     <div class="relative z-10">
       <Header />
 
       <main class="relative min-h-screen">
-        <Countdown />
-        <div class="absolute bottom-0 left-0 w-full mb-7">
+        <!-- Flame background image - spanning from countdown to blndt -->
+        <div
+          class="absolute top-40 bottom-20 left-0 w-full overflow-hidden z-0"
+        >
+          <img
+            src="@/assets/flameback.png"
+            alt="Flame Background"
+            class="w-full h-full object-cover object-center"
+          />
+        </div>
+
+        <!-- Countdown overlaying the flame image -->
+        <div class="relative z-20">
+          <Countdown />
+        </div>
+
+        <!-- Blndt component fixed at bottom -->
+        <div class="absolute bottom-0 left-0 w-full z-10 mb-7">
           <Blndt />
         </div>
       </main>
 
       <!-- Scroll ngang cho AboutUs & AboutContest -->
-      <div ref="horizontalSection" class="horizontal-section mt-32">
-        <section class="snap-child">
-          <AboutUs />
-        </section>
-        <section class="snap-child">
-          <AboutContest />
-        </section>
+      <div ref="horizontalSection" class="horizontal-scroll-section">
+        <div class="horizontal-wrapper">
+          <div class="horizontal-inner">
+            <section class="horizontal-item">
+              <AboutUs />
+            </section>
+            <section class="horizontal-item">
+              <AboutContest />
+            </section>
+          </div>
+        </div>
       </div>
 
       <Prize class="mt-16" />
@@ -42,14 +62,49 @@
         class="relative py-16 px-4 md:px-16 description-container"
         :class="{ 'description-visible': isDescriptionVisible }"
       >
-        <div class="max-w-4xl mx-auto text-center py-16">
-          <p class="text-white text-xl md:text-2xl leading-relaxed py-16">
-            Cuộc thi Bản lĩnh Nhà đầu tư là hành trình thử thách tư duy và khơi
-            mở tiềm năng của thế hệ trẻ đam mê tài chính. Từ kiến thức nền tảng
-            đến những góc nhìn chuyên sâu, cuộc thi truyền cảm hứng để thí sinh
-            bứt phá giới hạn, hun đúc bản lĩnh, và cùng kiến tạo một thế hệ nhà
-            đầu tư tự tin, năng động trong tương lai.
-          </p>
+        <div class="max-w-5xl mx-auto text-center py-16">
+          <!-- Decorative elements -->
+          <div class="relative">
+            <div
+              class="absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent"
+            ></div>
+
+            <div class="glass-text-container">
+              <p class="hero-description">
+                Cuộc thi Bản lĩnh Nhà đầu tư là hành trình thử thách tư duy và
+                khơi mở tiềm năng của thế hệ trẻ đam mê tài chính. Từ kiến thức
+                nền tảng đến những góc nhìn chuyên sâu, cuộc thi truyền cảm hứng
+                để thí sinh bứt phá giới hạn, hun đúc bản lĩnh, và cùng kiến tạo
+                một thế hệ nhà đầu tư tự tin, năng động trong tương lai.
+              </p>
+
+              <!-- Quote decoration -->
+              <div class="quote-decoration">
+                <svg
+                  class="quote-icon quote-left"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M6.5 10c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm6 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm-6 4c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm6 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"
+                  />
+                </svg>
+                <svg
+                  class="quote-icon quote-right"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M6.5 10c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm6 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm-6 4c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm6 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"
+                  />
+                </svg>
+              </div>
+            </div>
+
+            <div
+              class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent"
+            ></div>
+          </div>
         </div>
       </section>
       <Activity />
@@ -99,6 +154,9 @@ onMounted(() => {
   const el = horizontalSection.value;
   if (!el) return;
 
+  const wrapper = el.querySelector(".horizontal-wrapper");
+  const inner = el.querySelector(".horizontal-inner");
+
   // Setup Intersection Observer for description section
   if (descriptionSection.value) {
     const descriptionObserver = new IntersectionObserver(
@@ -117,91 +175,39 @@ onMounted(() => {
     descriptionObserver.observe(descriptionSection.value);
   }
 
-  const onWheel = (e) => {
-    // Kiểm tra vị trí của horizontal section so với viewport
-    const rect = el.getBoundingClientRect();
-    const isAtTop = rect.top <= 0;
-    const isInView = rect.top <= window.innerHeight && rect.bottom >= 0;
-
-    // Nếu horizontal section chưa chạm top thì cho scroll dọc bình thường
-    if (!isAtTop) {
-      return; // Cho phép scroll dọc để đưa section lên top
-    }
-
-    const scrollLeft = el.scrollLeft;
-    const maxScrollLeft = el.scrollWidth - el.clientWidth;
-    const aboutUsSection = el.querySelector(".snap-child:first-child");
-
-    if (!aboutUsSection) return;
-
-    const aboutUsScrollTop = aboutUsSection.scrollTop;
-    const aboutUsScrollHeight = aboutUsSection.scrollHeight;
-    const aboutUsClientHeight = aboutUsSection.clientHeight;
-    const aboutUsMaxScroll = aboutUsScrollHeight - aboutUsClientHeight;
-
-    // Case 1: Đang ở AboutUs (scrollLeft = 0) và scroll xuống, section đã ở top
-    if (scrollLeft === 0 && e.deltaY > 0 && isAtTop) {
-      // Nếu AboutUs chưa scroll hết content bên trong
-      if (aboutUsMaxScroll > 5 && aboutUsScrollTop < aboutUsMaxScroll - 5) {
-        // Cho phép scroll dọc trong AboutUs
-        return;
-      }
-      // Nếu AboutUs đã scroll hết -> bắt đầu scroll ngang
-      e.preventDefault();
-      el.scrollLeft += e.deltaY * 2;
-      if (el.scrollLeft > maxScrollLeft) el.scrollLeft = maxScrollLeft;
-      return;
-    }
-
-    // Case 2: Đang scroll ngang (0 < scrollLeft < maxScrollLeft)
-    if (scrollLeft > 0 && scrollLeft < maxScrollLeft && isAtTop) {
-      e.preventDefault();
-      if (e.deltaY > 0) {
-        // Scroll xuống -> tiếp tục scroll ngang sang phải
-        el.scrollLeft += e.deltaY * 2;
-        if (el.scrollLeft > maxScrollLeft) el.scrollLeft = maxScrollLeft;
-      } else {
-        // Scroll lên -> scroll ngang sang trái
-        el.scrollLeft += e.deltaY * 2;
-        if (el.scrollLeft < 0) el.scrollLeft = 0;
-      }
-      return;
-    }
-
-    // Case 3: Đã scroll ngang hết (scrollLeft = maxScrollLeft)
-    if (scrollLeft >= maxScrollLeft && e.deltaY > 0 && isAtTop) {
-      // Cho phép scroll xuống tiếp (không preventDefault)
-      return;
-    }
-
-    // Case 4: Ở AboutContest và scroll lên
-    if (scrollLeft >= maxScrollLeft && e.deltaY < 0 && isAtTop) {
-      // Bắt đầu scroll ngang về lại
-      e.preventDefault();
-      el.scrollLeft += e.deltaY * 2;
-      if (el.scrollLeft < 0) el.scrollLeft = 0;
-      return;
-    }
-
-    // Case 5: Về lại AboutUs hoàn toàn (scrollLeft = 0) và scroll lên
-    if (scrollLeft === 0 && e.deltaY < 0) {
-      // Nếu đang ở top và AboutUs đã scroll về đầu thì cho scroll lên để đưa section xuống
-      if (isAtTop && aboutUsScrollTop <= 5) {
-        return; // Cho phép scroll dọc để đưa section xuống khỏi top
-      }
-      // Nếu chưa ở top thì cho scroll bình thường
-      if (!isAtTop) {
-        return;
-      }
-      // Nếu ở top và AboutUs chưa scroll về đầu thì scroll trong AboutUs
-      return;
+  // Set up horizontal scroll section height based on content width
+  let totalWidth = 0;
+  const setupHorizontalScroll = () => {
+    if (inner) {
+      totalWidth = inner.scrollWidth;
+      // Set section height to enable vertical scrolling for horizontal effect
+      el.style.height = `${totalWidth}px`;
     }
   };
 
-  el.addEventListener("wheel", onWheel, { passive: false });
+  // Setup on load and resize
+  setupHorizontalScroll();
+  window.addEventListener("resize", setupHorizontalScroll);
+
+  // Handle scroll for horizontal effect
+  const handleScroll = () => {
+    const rect = el.getBoundingClientRect();
+
+    // Check if we're in the horizontal scroll zone
+    if (rect.top <= 0 && rect.bottom > window.innerHeight) {
+      const scrollY = -rect.top;
+      // Apply horizontal scroll based on vertical scroll position
+      if (wrapper) {
+        wrapper.scrollLeft = scrollY;
+      }
+    }
+  };
+
+  window.addEventListener("scroll", handleScroll);
 
   onBeforeUnmount(() => {
-    el.removeEventListener("wheel", onWheel);
+    window.removeEventListener("scroll", handleScroll);
+    window.removeEventListener("resize", setupHorizontalScroll);
   });
 });
 </script>
@@ -225,24 +231,41 @@ onMounted(() => {
   display: none; /* Chrome, Safari, Opera */
 }
 
-.horizontal-section {
-  display: flex;
-  width: 100%;
-  min-height: 100vh;
-  overflow-x: hidden; /* chỉ ẩn scroll ngang */
-  overflow-y: hidden; /* ẩn scroll dọc của container */
-  scroll-behavior: smooth;
+.horizontal-scroll-section {
+  position: relative;
+  width: 100vw;
+  /* height will be set dynamically by JavaScript */
 }
 
-.snap-child {
-  flex: 0 0 100%;
-  min-height: 100vh;
-  overflow-y: auto; /* cho phép scroll dọc trong từng section */
+.horizontal-wrapper {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-x: auto;
+  overflow-y: hidden;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
 }
 
-.snap-child::-webkit-scrollbar {
+.horizontal-wrapper::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.horizontal-inner {
+  display: flex;
+  height: 100%;
+  /* width will be calculated based on items */
+}
+
+.horizontal-item {
+  flex: 0 0 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.horizontal-item::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
 
@@ -313,6 +336,135 @@ onMounted(() => {
 .floating-btn:hover .floating-logo {
   transform: scale(1.1);
   filter: brightness(1.3);
+}
+
+/* Hero Description Styling */
+.glass-text-container {
+  position: relative;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05)
+  );
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 3rem 2.5rem;
+  margin: 2rem 0;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  transition: all 0.6s ease;
+}
+
+.glass-text-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+.hero-description {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.highlight-text {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+  text-shadow: none;
+  position: relative;
+}
+
+.highlight-text::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #fbbf24, transparent);
+  border-radius: 1px;
+}
+
+.highlight-accent {
+  color: #60d9fa;
+  font-weight: 500;
+  text-shadow: 0 0 10px rgba(96, 217, 250, 0.3);
+  transition: all 0.3s ease;
+}
+
+.highlight-accent:hover {
+  color: #7dd3fc;
+  text-shadow: 0 0 15px rgba(96, 217, 250, 0.5);
+}
+
+.quote-decoration {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.quote-icon {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  color: rgba(251, 191, 36, 0.3);
+  opacity: 0.6;
+}
+
+.quote-left {
+  top: 1rem;
+  left: 1rem;
+  transform: rotate(180deg);
+}
+
+.quote-right {
+  bottom: 1rem;
+  right: 1rem;
+}
+
+/* Responsive Typography */
+@media (min-width: 768px) {
+  .hero-description {
+    font-size: 1.375rem;
+    line-height: 1.7;
+  }
+
+  .glass-text-container {
+    padding: 3.5rem 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-description {
+    font-size: 1.5rem;
+    line-height: 1.75;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-description {
+    font-size: 1.125rem;
+    line-height: 1.8;
+  }
+
+  .glass-text-container {
+    padding: 2rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .quote-icon {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 /* Responsive cho floating button */

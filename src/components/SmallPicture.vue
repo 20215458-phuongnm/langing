@@ -1,13 +1,15 @@
 <template>
   <div
-    class="relative w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto"
+    class="relative w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto small-picture-component"
   >
     <!-- Small image with white border -->
-    <div class="relative border-2 sm:border-4 border-white">
+    <div
+      class="relative border-2 sm:border-4 border-white overflow-hidden image-container"
+    >
       <img
         :src="currentActivity.image"
         :alt="currentActivity.title"
-        class="w-full h-auto object-cover shadow-lg"
+        class="w-full h-auto object-cover shadow-lg image-zoom-effect"
       />
     </div>
 
@@ -87,5 +89,28 @@ const currentActivity = computed(() => {
   text-shadow: 0 0 15px rgba(223, 251, 255, 0.6),
     0 0 12px rgba(223, 251, 255, 0.4), 0 0 16px rgba(223, 251, 255, 0.3),
     0 0 16px rgba(223, 251, 255, 0.2);
+}
+
+/* Image zoom effect on hover - trigger từ component chính */
+.small-picture-component {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.image-container {
+  transition: all 0.3s ease;
+}
+
+.image-zoom-effect {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover vào bất kỳ đâu trong component sẽ zoom ảnh */
+.small-picture-component:hover .image-zoom-effect {
+  transform: scale(1.1);
+}
+
+.small-picture-component:hover .image-container {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 20px rgba(96, 217, 250, 0.2);
 }
 </style>

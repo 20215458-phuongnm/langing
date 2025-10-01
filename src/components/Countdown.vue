@@ -31,11 +31,6 @@
     </div>
 
     <!-- Decorative Elements -->
-    <div class="decoration-dots">
-      <div class="dot dot-1"></div>
-      <div class="dot dot-2"></div>
-      <div class="dot dot-3"></div>
-    </div>
   </div>
 </template>
 
@@ -57,71 +52,149 @@ const targetTimestamp = targetDate.getTime();
 
 .countdown-container {
   position: relative;
-  padding: 2rem;
+  padding: 0;
+  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100vw;
 }
 
 .glass-card {
   position: relative;
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.15),
-    rgba(255, 255, 255, 0.05)
+  background: 
+    /* Pure white base with subtle gradient */ linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(248, 250, 252, 0.95) 50%,
+    rgba(255, 255, 255, 0.98) 100%
   );
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 24px;
-  padding: 2.5rem 6rem;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15),
-    0 0 0 1px rgba(255, 255, 255, 0.1) inset, 0 0 40px rgba(255, 255, 255, 0.1),
-    0 0 80px rgba(255, 255, 255, 0.05);
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
-  max-width: 900px;
-  width: 100%;
+  backdrop-filter: blur(15px) saturate(150%);
+  -webkit-backdrop-filter: blur(15px) saturate(150%);
+  border-radius: 0px;
+  padding: 1rem 4rem;
+
+  /* Premium white card shadows */
+  box-shadow: 
+    /* Main depth shadow */ 0 25px 50px rgba(0, 0, 0, 0.08),
+    0 15px 35px rgba(0, 0, 0, 0.05), 0 5px 15px rgba(0, 0, 0, 0.04),
+    /* Inner white glow */ inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.02),
+    /* Outer subtle glow */ 0 0 50px rgba(255, 255, 255, 0.3);
+
+  /* Elegant border */
+  border: 2px solid;
+  border-image: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(240, 245, 251, 0.6) 25%,
+      rgba(59, 130, 246, 0.1) 50%,
+      rgba(240, 245, 251, 0.6) 75%,
+      rgba(255, 255, 255, 0.8) 100%
+    )
+    1;
+
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: visible;
+  max-width: 100vw;
+  width: 100vw;
 }
 
+/* Subtle decorative pattern overlay */
 .glass-card::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.4),
-    transparent
-  );
-  animation: shimmer 3s ease-in-out infinite;
+  inset: 0;
+  background: 
+    /* Subtle dot pattern */ radial-gradient(
+      circle at 25% 25%,
+      rgba(59, 130, 246, 0.03) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle at 75% 75%,
+      rgba(251, 191, 36, 0.02) 1px,
+      transparent 1px
+    ),
+    /* Fine grid lines */
+      linear-gradient(90deg, rgba(255, 255, 255, 0.5) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(240, 245, 251, 0.3) 1px, transparent 1px);
+  background-size: 40px 40px, 60px 60px, 20px 20px, 20px 20px;
+  opacity: 0.4;
+  pointer-events: none;
+  animation: subtleMove 30s linear infinite;
 }
 
-@keyframes shimmer {
-  0%,
-  100% {
-    opacity: 0;
+@keyframes subtleMove {
+  0% {
+    background-position: 0 0, 0 0, 0 0, 0 0;
   }
-  50% {
-    opacity: 1;
+  100% {
+    background-position: 40px 40px, -60px 60px, 20px 20px, -20px 20px;
+  }
+}
+
+/* Outer glow ring */
+.glass-card::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(59, 130, 246, 0.1) 25%,
+    rgba(251, 191, 36, 0.05) 50%,
+    rgba(59, 130, 246, 0.1) 75%,
+    rgba(255, 255, 255, 0.6) 100%
+  );
+  border-radius: 0px;
+  z-index: -1;
+  filter: blur(1px);
+  animation: gentleGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes gentleGlow {
+  0% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(1.005);
   }
 }
 
 .glass-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 35px 70px rgba(0, 0, 0, 0.2),
-    0 0 0 1px rgba(255, 255, 255, 0.15) inset, 0 0 60px rgba(255, 255, 255, 0.2),
-    0 0 120px rgba(255, 255, 255, 0.1), 0 0 200px rgba(255, 255, 255, 0.05);
+  transform: translateY(-5px) scale(1.01);
+
+  box-shadow: 
+    /* Enhanced depth shadows */ 0 35px 70px rgba(0, 0, 0, 0.12),
+    0 20px 45px rgba(0, 0, 0, 0.08), 0 8px 25px rgba(0, 0, 0, 0.06),
+    /* Enhanced inner glow */ inset 0 2px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.03),
+    /* Premium outer glow */ 0 0 80px rgba(255, 255, 255, 0.4),
+    /* Subtle blue accent */ 0 0 120px rgba(59, 130, 246, 0.08);
+
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+.glass-card:hover::after {
+  opacity: 1;
+  animation-duration: 4s, 2s;
+  filter: blur(0.5px);
+}
+
+.glass-card:hover::before {
+  opacity: 0.6;
+  animation-duration: 15s;
 }
 
 .main-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2.5rem;
+  gap: 1rem;
 }
 
 .countdown-section {
@@ -216,71 +289,24 @@ const targetTimestamp = targetDate.getTime();
   transform: translateX(4px);
 }
 
-.decoration-dots {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.dot {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.dot-1 {
-  top: 20%;
-  left: 10%;
-  animation: float 4s ease-in-out infinite;
-}
-
-.dot-2 {
-  top: 60%;
-  right: 15%;
-  animation: float 4s ease-in-out infinite 1.5s;
-}
-
-.dot-3 {
-  bottom: 30%;
-  left: 20%;
-  animation: float 4s ease-in-out infinite 3s;
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px) scale(1);
-    opacity: 0.3;
-  }
-  50% {
-    transform: translateY(-20px) scale(1.2);
-    opacity: 0.6;
-  }
-}
-
 /* Responsive Design */
 @media (max-width: 640px) {
   .countdown-container {
-    padding: 1rem;
+    padding: 0;
   }
 
   .glass-card {
-    padding: 2rem 2.5rem;
-    min-width: 320px;
-    max-width: 95vw;
+    padding: 0.75rem 1.5rem;
+    min-width: 100vw;
+    max-width: 100vw;
+    width: 100vw;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15),
       0 0 0 1px rgba(255, 255, 255, 0.1) inset,
       0 0 30px rgba(255, 255, 255, 0.08);
   }
 
   .main-content {
-    gap: 2rem;
+    gap: 0.75rem;
   }
 
   .countdown-wrapper {
@@ -296,8 +322,9 @@ const targetTimestamp = targetDate.getTime();
 
 @media (min-width: 641px) and (max-width: 768px) {
   .glass-card {
-    padding: 2.5rem 4rem;
-    max-width: 700px;
+    padding: 1rem 3rem;
+    max-width: 100vw;
+    width: 100vw;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15),
       0 0 0 1px rgba(255, 255, 255, 0.1) inset,
       0 0 35px rgba(255, 255, 255, 0.08), 0 0 60px rgba(255, 255, 255, 0.04);
@@ -306,8 +333,17 @@ const targetTimestamp = targetDate.getTime();
 
 @media (min-width: 769px) and (max-width: 1024px) {
   .glass-card {
-    padding: 2.5rem 5rem;
-    max-width: 800px;
+    padding: 1rem 4rem;
+    max-width: 100vw;
+    width: 100vw;
+  }
+}
+
+@media (min-width: 1025px) {
+  .glass-card {
+    padding: 1rem 5rem;
+    max-width: 100vw;
+    width: 100vw;
   }
 }
 
@@ -337,22 +373,27 @@ const targetTimestamp = targetDate.getTime();
   margin-top: 0.5rem;
   font-size: 0.75rem;
   font-weight: 600;
-  color: #ffffff !important;
+  color: #000000 !important;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-family: "Poppins", sans-serif;
 }
 
-/* Đảm bảo label trong countdown có màu trắng */
+/* Chỉ label có màu đen, số vẫn màu trắng */
 .countdown-wrapper :deep(.label) {
-  color: #ffffff !important;
+  color: #000000 !important;
 }
 
 .countdown-wrapper :deep(.flip-countdown .label) {
+  color: #000000 !important;
+}
+
+/* Đảm bảo số countdown vẫn màu trắng */
+.countdown-wrapper :deep(.flip-number) {
   color: #ffffff !important;
 }
 
-.countdown-wrapper :deep(*) {
+.countdown-wrapper :deep(.flip-countdown .flip-number) {
   color: #ffffff !important;
 }
 
@@ -360,5 +401,33 @@ const targetTimestamp = targetDate.getTime();
   .label {
     font-size: 0.875rem;
   }
+}
+
+.corner-top-left {
+  top: 20px;
+  left: 20px;
+  background: linear-gradient(135deg, #fbbf24, transparent);
+  border-radius: 0 0 20px 0;
+}
+
+.corner-top-right {
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(225deg, #3b82f6, transparent);
+  border-radius: 0 0 0 20px;
+}
+
+.corner-bottom-left {
+  bottom: 20px;
+  left: 20px;
+  background: linear-gradient(45deg, #a855f7, transparent);
+  border-radius: 0 20px 0 0;
+}
+
+.corner-bottom-right {
+  bottom: 20px;
+  right: 20px;
+  background: linear-gradient(315deg, #10b981, transparent);
+  border-radius: 20px 0 0 0;
 }
 </style>
