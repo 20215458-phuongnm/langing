@@ -1,7 +1,11 @@
 <template>
-  <section ref="activitySection" class="activity-scroll-section">
-    <div class="activity-wrapper">
-      <div class="activity-inner">
+  <section
+    ref="activitySection"
+    class="activity-scroll-section"
+    :class="{ 'mobile-layout': isMobile }"
+  >
+    <div class="activity-wrapper" :class="{ 'mobile-wrapper': isMobile }">
+      <div class="activity-inner" :class="{ 'mobile-inner': isMobile }">
         <!-- Background images (large) with fade transition -->
         <div class="absolute inset-0 z-0">
           <div
@@ -21,8 +25,8 @@
           </div>
         </div>
 
-        <!-- Horizontal scrolling SmallPictures -->
-        <div class="activity-horizontal-wrapper">
+        <!-- Desktop: Horizontal scrolling SmallPictures -->
+        <div v-if="!isMobile" class="activity-horizontal-wrapper">
           <div
             ref="activityHorizontalInner"
             class="activity-horizontal-inner"
@@ -33,7 +37,7 @@
               :key="'item-' + index"
               class="activity-horizontal-item"
             >
-              <div class="w-full h-full flex justify-center items-center pl-64">
+              <div class="w-full h-full flex justify-center items-center">
                 <div class="small-picture-hover-wrapper">
                   <SmallPicture :type="activity.type" />
                 </div>
@@ -42,8 +46,34 @@
           </div>
         </div>
 
-        <!-- Vertical title section - Right side -->
+        <!-- Mobile: Stack layout -->
+        <div v-else class="mobile-activity-wrapper">
+          <div class="mobile-activity-header">
+            <h2
+              class="text-white text-3xl font-bold text-center mb-8 glow-title"
+            >
+              CÁC HOẠT ĐỘNG
+            </h2>
+          </div>
+          <div class="mobile-activity-content">
+            <div class="mobile-horizontal-scroll-container">
+              <div
+                v-for="(activity, index) in activities"
+                :key="'mobile-item-' + index"
+                class="mobile-activity-item"
+                :style="{ backgroundImage: `url(${activity.backgroundImage})` }"
+              >
+                <div class="mobile-smallpicture-wrapper">
+                  <SmallPicture :type="activity.type" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desktop: Vertical title section - Right side -->
         <div
+          v-if="!isMobile"
           class="absolute right-0 top-0 w-20 h-full flex items-center justify-center bg-black/30 backdrop-blur-sm z-30 hover-title-section"
         >
           <div class="transform rotate-90 origin-center">
@@ -54,13 +84,25 @@
             </h2>
           </div>
         </div>
+
+        <!-- Mobile: Horizontal title section - Top -->
+        <div
+          v-if="isMobile"
+          class="absolute top-0 left-0 right-0 w-full h-16 flex items-center justify-center bg-black/50 backdrop-blur-sm z-30 mobile-title-section"
+        >
+          <h2
+            class="text-white text-2xl font-bold tracking-wider glow-title mobile-title-text"
+          >
+            CÁC HOẠT ĐỘNG
+          </h2>
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted, onBeforeUnmount, computed } from "vue";
 import SmallPicture from "@/components/SmallPicture.vue";
 
 // Import background images
@@ -88,6 +130,14 @@ const activitySection = ref(null);
 const activityHorizontalInner = ref(null);
 const currentBgIndex = ref(0);
 const horizontalOffset = ref(0);
+
+// Mobile detection
+const isMobile = computed(() => {
+  if (typeof window !== "undefined") {
+    return window.innerWidth < 768;
+  }
+  return false;
+});
 
 onMounted(() => {
   const el = activitySection.value;
@@ -253,6 +303,18 @@ onMounted(() => {
     0 0 20px rgba(96, 217, 250, 0.6), 0 0 30px rgba(96, 217, 250, 0.4);
 }
 
+/* Mobile title section */
+.mobile-title-section {
+  transition: all 0.3s ease;
+}
+
+.mobile-title-text {
+  transition: all 0.3s ease;
+  text-shadow: 0 0 3px rgba(223, 251, 255, 0.6),
+    0 0 6px rgba(223, 251, 255, 0.4), 0 0 9px rgba(223, 251, 255, 0.3),
+    0 0 12px rgba(223, 251, 255, 0.2);
+}
+
 /* SmallPicture hover effects */
 .small-picture-hover-wrapper {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -348,5 +410,217 @@ onMounted(() => {
 .transition-opacity {
   transition-property: opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Mobile Layout Styles */
+@media (max-width: 767px) {
+  .mobile-layout {
+    height: auto !important;
+    position: relative;
+  }
+
+  .mobile-wrapper {
+    position: relative !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .mobile-inner {
+    height: auto !important;
+    width: 100% !important;
+  }
+
+  .mobile-activity-wrapper {
+    position: relative;
+    z-index: 20;
+    min-height: 100vh;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
+    padding-top: 4rem; /* Add padding for mobile title */
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .mobile-activity-header {
+    display: none; /* Hide since we have mobile title section now */
+  }
+
+  .mobile-main-title {
+    font-size: 2.25rem !important;
+    text-shadow: 0 0 10px rgba(223, 251, 255, 0.8),
+      0 0 20px rgba(223, 251, 255, 0.6), 0 0 30px rgba(223, 251, 255, 0.4),
+      0 0 40px rgba(96, 217, 250, 0.6);
+    letter-spacing: 0.1em;
+    margin-bottom: 0 !important;
+  }
+
+  .mobile-activity-content {
+    padding: 1rem 0 2rem 0;
+  }
+
+  .mobile-horizontal-scroll-container {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 1rem;
+    padding: 0 1rem 0 1rem;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    scroll-behavior: smooth;
+  }
+
+  .mobile-horizontal-scroll-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
+  .mobile-activity-item {
+    position: relative;
+    flex: 0 0 75vw;
+    min-height: 70vh;
+    border-radius: 20px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 0.5rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    scroll-snap-align: center;
+  }
+
+  .mobile-activity-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0.5) 45%,
+      rgba(0, 0, 0, 0.2) 70%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+    z-index: 1;
+  }
+
+  .mobile-activity-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .mobile-smallpicture-wrapper {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 400px;
+    margin-left: 0;
+    margin-right: auto;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .mobile-smallpicture-wrapper:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.03);
+    transition: all 0.3s ease;
+  }
+
+  /* Disable desktop hover effects on mobile */
+  .mobile-activity-wrapper .small-picture-hover-wrapper {
+    padding: 0;
+    border-radius: 0;
+  }
+
+  .mobile-activity-wrapper .small-picture-hover-wrapper::before,
+  .mobile-activity-wrapper .small-picture-hover-wrapper::after {
+    display: none;
+  }
+
+  .mobile-activity-wrapper .small-picture-hover-wrapper:hover {
+    transform: none;
+    filter: none;
+  }
+
+  /* Visual indicator for horizontal scroll */
+  .mobile-horizontal-scroll-container::after {
+    content: "";
+    position: sticky;
+    right: 0;
+    top: 0;
+    width: 30px;
+    height: 100%;
+    background: linear-gradient(
+      270deg,
+      rgba(0, 0, 0, 0.4) 0%,
+      transparent 100%
+    );
+    pointer-events: none;
+    z-index: 5;
+    flex-shrink: 0;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .mobile-title-text {
+    font-size: 1.5rem !important;
+  }
+
+  .mobile-activity-wrapper {
+    padding-top: 3.5rem !important;
+  }
+
+  .mobile-activity-item {
+    flex: 0 0 80vw;
+    min-height: 65vh;
+    padding-left: 0.25rem;
+  }
+
+  .mobile-smallpicture-wrapper {
+    max-width: 350px;
+    padding: 1rem;
+  }
+
+  .mobile-horizontal-scroll-container {
+    gap: 0.75rem;
+    padding: 0 0.5rem;
+  }
+}
+
+/* Very small mobile devices */
+@media (max-width: 360px) {
+  .mobile-title-text {
+    font-size: 1.25rem !important;
+  }
+
+  .mobile-activity-wrapper {
+    padding-top: 3rem !important;
+  }
+
+  .mobile-activity-item {
+    flex: 0 0 85vw;
+    min-height: 60vh;
+    padding-left: 0.25rem;
+  }
+
+  .mobile-smallpicture-wrapper {
+    max-width: 300px;
+    padding: 0.75rem;
+  }
+
+  .mobile-horizontal-scroll-container {
+    gap: 0.5rem;
+    padding: 0 0.25rem;
+  }
 }
 </style>

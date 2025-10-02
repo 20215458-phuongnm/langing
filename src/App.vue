@@ -38,7 +38,7 @@
         </div>
       </main>
 
-      <!-- Scroll ngang cho AboutUs & AboutContest -->
+      <!-- Scroll ngang cho AboutUs & AboutContest (Desktop) / Stack dọc (Mobile) -->
       <div ref="horizontalSection" class="horizontal-scroll-section">
         <div class="horizontal-wrapper">
           <div class="horizontal-inner">
@@ -49,6 +49,16 @@
               <AboutContest />
             </section>
           </div>
+        </div>
+
+        <!-- Mobile vertical stack -->
+        <div class="mobile-vertical-stack md:hidden">
+          <section class="mobile-section">
+            <AboutUs />
+          </section>
+          <section class="mobile-section">
+            <AboutContest />
+          </section>
         </div>
       </div>
 
@@ -154,6 +164,9 @@ onMounted(() => {
   const el = horizontalSection.value;
   if (!el) return;
 
+  // Check if mobile
+  const isMobile = () => window.innerWidth <= 768;
+
   const wrapper = el.querySelector(".horizontal-wrapper");
   const inner = el.querySelector(".horizontal-inner");
 
@@ -178,6 +191,12 @@ onMounted(() => {
   // Set up horizontal scroll section height based on content width
   let totalWidth = 0;
   const setupHorizontalScroll = () => {
+    // Skip horizontal scroll setup on mobile
+    if (isMobile()) {
+      el.style.height = "auto";
+      return;
+    }
+
     if (inner) {
       totalWidth = inner.scrollWidth;
       // Set section height to enable vertical scrolling for horizontal effect
@@ -191,6 +210,9 @@ onMounted(() => {
 
   // Handle scroll for horizontal effect
   const handleScroll = () => {
+    // Skip horizontal scroll on mobile
+    if (isMobile()) return;
+
     const rect = el.getBoundingClientRect();
 
     // Check if we're in the horizontal scroll zone
@@ -199,7 +221,20 @@ onMounted(() => {
       // Apply horizontal scroll based on vertical scroll position
       if (wrapper) {
         wrapper.scrollLeft = scrollY;
+
+        // Lock vertical scroll for all items during horizontal scrolling
+        const items = wrapper.querySelectorAll(".horizontal-item");
+        items.forEach((item) => {
+          item.scrollTop = 0; // Reset to top
+          item.classList.add("scroll-locked"); // Add lock class
+        });
       }
+    } else {
+      // Re-enable vertical scroll when not in horizontal scroll zone
+      const items = wrapper?.querySelectorAll(".horizontal-item");
+      items?.forEach((item) => {
+        item.classList.remove("scroll-locked"); // Remove lock class
+      });
     }
   };
 
@@ -237,6 +272,17 @@ onMounted(() => {
   /* height will be set dynamically by JavaScript */
 }
 
+/* Mobile responsive - hide horizontal scroll on mobile */
+@media (max-width: 768px) {
+  .horizontal-scroll-section {
+    height: auto !important; /* Override JS height */
+  }
+
+  .horizontal-wrapper {
+    display: none; /* Hide horizontal scroll on mobile */
+  }
+}
+
 .horizontal-wrapper {
   position: sticky;
   top: 0;
@@ -263,6 +309,47 @@ onMounted(() => {
   overflow-y: auto;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
+  display: flex;
+  align-items: flex-start; /* Ensure consistent alignment */
+  scroll-behavior: smooth; /* Add smooth scrolling */
+  position: relative; /* Ensure proper positioning */
+}
+
+/* Lock vertical scroll during horizontal scrolling */
+.horizontal-item.scroll-locked {
+  overflow-y: hidden !important;
+}
+
+/* Ensure both AboutUs and AboutContest are consistently positioned */
+.horizontal-item > * {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+}
+
+/* Mobile vertical stack styles */
+.mobile-vertical-stack {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: inherit;
+}
+
+.mobile-section {
+  width: 100%;
+  min-height: auto;
+  padding: 0;
+  margin: 0;
+}
+
+/* Hide horizontal elements on desktop */
+@media (min-width: 769px) {
+  .mobile-vertical-stack {
+    display: none !important;
+  }
 }
 
 .horizontal-item::-webkit-scrollbar {

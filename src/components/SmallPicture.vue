@@ -113,4 +113,65 @@ const currentActivity = computed(() => {
 .small-picture-component:hover .image-container {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 20px rgba(96, 217, 250, 0.2);
 }
+
+/* Mobile responsive styles */
+@media (max-width: 767px) {
+  .small-picture-component {
+    max-width: none !important;
+    width: 100%;
+  }
+
+  .image-container {
+    border-width: 3px;
+  }
+
+  .small-picture-component > div:last-child {
+    padding: 1.5rem !important;
+  }
+
+  .small-picture-component h3 {
+    font-size: 1.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .small-picture-component p {
+    font-size: 0.875rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .small-picture-component > div:last-child > div:last-child {
+    font-size: 0.75rem !important;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .small-picture-component h3 {
+    font-size: 1.25rem !important;
+  }
+
+  .small-picture-component p {
+    font-size: 0.8rem !important;
+  }
+
+  .small-picture-component > div:last-child {
+    padding: 1.25rem !important;
+  }
+}
+
+/* Very small mobile devices */
+@media (max-width: 360px) {
+  .small-picture-component h3 {
+    font-size: 1.125rem !important;
+  }
+
+  .small-picture-component p {
+    font-size: 0.75rem !important;
+  }
+
+  .small-picture-component > div:last-child {
+    padding: 1rem !important;
+  }
+}
 </style>

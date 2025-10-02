@@ -1,48 +1,66 @@
 <template>
   <div
     ref="prizeSection"
-    class="max-w-6xl mx-auto overflow-hidden rounded-lg shadow-2xl prize-container"
+    class="max-w-6xl mx-auto overflow-hidden shadow-2xl prize-container px-4 sm:px-0 rounded-xl hover-scale"
     :class="{ 'prize-visible': isVisible }"
   >
     <!-- Statistics Section - Gradient Background -->
-    <div class="bg-gradient-to-b from-[#d4fcf8] to-[#eafffe] p-12">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+    <div
+      class="bg-gradient-to-b from-[#d4fcf8] to-[#eafffe] p-6 sm:p-8 md:p-12"
+    >
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 md:gap-12 text-center"
+      >
         <!-- Statistic 1 -->
-        <div class="text-slate-800">
-          <div class="text-5xl md:text-6xl font-bold mb-3 text-slate-700">
+        <div class="text-slate-800 sm:col-span-1">
+          <div
+            class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-2 sm:mb-3 text-slate-700"
+          >
             {{ animatedCount1 }}+
           </div>
-          <div class="text-lg md:text-xl text-slate-600">Thí sinh đăng ký</div>
+          <div class="text-base sm:text-lg md:text-xl text-slate-600">
+            Thí sinh đăng ký
+          </div>
         </div>
 
         <!-- Statistic 2 -->
-        <div class="text-slate-800">
-          <div class="text-5xl md:text-6xl font-bold mb-3 text-slate-700">
+        <div class="text-slate-800 sm:col-span-1">
+          <div
+            class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-2 sm:mb-3 text-slate-700"
+          >
             {{ animatedCount2 }}+
           </div>
-          <div class="text-lg md:text-xl text-slate-600">Tiếp cận thí sinh</div>
+          <div class="text-base sm:text-lg md:text-xl text-slate-600">
+            Tiếp cận thí sinh
+          </div>
         </div>
 
-        <!-- Statistic 3 -->
-        <div class="text-slate-800">
-          <div class="text-5xl md:text-6xl font-bold mb-3 text-slate-700">
+        <!-- Statistic 3 - Full width on mobile when 2-column layout -->
+        <div class="text-slate-800 sm:col-span-2 md:col-span-1">
+          <div
+            class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-2 sm:mb-3 text-slate-700"
+          >
             {{ animatedCount3 }}+
           </div>
-          <div class="text-lg md:text-xl text-slate-600">Trường Đại học</div>
+          <div class="text-base sm:text-lg md:text-xl text-slate-600">
+            Trường Đại học
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Prize Section - Simple Dark Background -->
     <div
-      class="relative bg-gradient-to-br from-[#233b51] via-[#233b51]/80 to-[#233b51] p-16 overflow-hidden opacity-90"
+      class="relative bg-gradient-to-br from-[#233b51] via-[#233b51]/80 to-[#233b51] p-6 sm:p-8 md:p-12 lg:p-16 overflow-hidden opacity-90"
     >
-      <div class="relative z-10 my-4 text-center text-white">
-        <h2 class="text-2xl md:text-3xl font-bold mb-6 tracking-wide">
+      <div class="relative z-10 my-2 sm:my-4 text-center text-white">
+        <h2
+          class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 tracking-wide px-2"
+        >
           TỔNG GIÁ TRỊ GIẢI THƯỞNG LÊN TỚI
         </h2>
         <div
-          class="text-5xl md:text-7xl font-bold text-cyan-300 drop-shadow-2xl tracking-wider glow-text"
+          class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-cyan-300 drop-shadow-2xl tracking-wider glow-text px-2"
         >
           HƠN {{ animatedPrize }} TRIỆU ĐỒNG
         </div>
@@ -200,6 +218,16 @@ onMounted(() => {
   transform: translateY(0);
 }
 
+/* Simple hover scale effect */
+.hover-scale {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
 .glow-text {
   text-shadow: 0 0 10px rgba(34, 211, 238, 0.8),
     0 0 20px rgba(34, 211, 238, 0.6), 0 0 30px rgba(34, 211, 238, 0.4),
@@ -213,5 +241,32 @@ onMounted(() => {
     0 0 55px rgba(34, 211, 238, 0.3);
   filter: brightness(1.2);
   transition: all 0.3s ease;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .prize-container {
+    margin: 0 8px;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 8px rgba(34, 211, 238, 0.8),
+      0 0 15px rgba(34, 211, 238, 0.6), 0 0 20px rgba(34, 211, 238, 0.4);
+    line-height: 1.1;
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 641px) and (max-width: 768px) {
+  .glow-text {
+    line-height: 1.2;
+  }
+}
+
+/* Large mobile landscape */
+@media (max-width: 640px) and (orientation: landscape) {
+  .prize-container {
+    transform: scale(0.9);
+  }
 }
 </style>
