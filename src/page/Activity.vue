@@ -56,12 +56,15 @@
             </h2>
           </div>
           <div class="mobile-activity-content">
-            <div class="mobile-horizontal-scroll-container">
+            <div
+              class="mobile-horizontal-scroll-container"
+              ref="mobileScrollContainer"
+            >
               <div
                 v-for="(activity, index) in activities"
                 :key="'mobile-item-' + index"
                 class="mobile-activity-item"
-                :style="{ backgroundImage: `url(${activity.backgroundImage})` }"
+                @click="scrollToItem(index)"
               >
                 <div class="mobile-smallpicture-wrapper">
                   <SmallPicture :type="activity.type" />
@@ -102,7 +105,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount, computed } from "vue";
+import { ref, onMounted, onBeforeUnmount, computed, nextTick } from "vue";
 import SmallPicture from "@/components/SmallPicture.vue";
 
 // Import background images
@@ -128,6 +131,7 @@ const activities = [
 
 const activitySection = ref(null);
 const activityHorizontalInner = ref(null);
+const mobileScrollContainer = ref(null);
 const currentBgIndex = ref(0);
 const horizontalOffset = ref(0);
 
@@ -138,6 +142,32 @@ const isMobile = computed(() => {
   }
   return false;
 });
+
+// Function to scroll to specific item on mobile
+const scrollToItem = (index) => {
+  if (!isMobile.value || !mobileScrollContainer.value) return;
+
+  const container = mobileScrollContainer.value;
+  const items = container.querySelectorAll(".mobile-activity-item");
+
+  if (items[index]) {
+    // Calculate scroll position to center the item
+    const item = items[index];
+    const containerWidth = container.clientWidth;
+    const itemWidth = item.clientWidth;
+    const itemOffset = item.offsetLeft;
+    const scrollPosition = itemOffset - (containerWidth - itemWidth) / 2;
+
+    // Smooth scroll to the item
+    container.scrollTo({
+      left: scrollPosition,
+      behavior: "smooth",
+    });
+
+    // Update background index immediately
+    currentBgIndex.value = index;
+  }
+};
 
 onMounted(() => {
   const el = activitySection.value;
@@ -212,9 +242,55 @@ onMounted(() => {
 
   window.addEventListener("scroll", handleScroll);
 
+  // Handle mobile horizontal scroll for background change
+  const handleMobileScroll = () => {
+    if (!isMobile.value || !mobileScrollContainer.value) return;
+
+    const container = mobileScrollContainer.value;
+    const items = container.querySelectorAll(".mobile-activity-item");
+    const containerWidth = container.clientWidth;
+    const scrollLeft = container.scrollLeft;
+
+    // Calculate which item is currently centered
+    let centerIndex = 0;
+    let minDistance = Infinity;
+
+    items.forEach((item, index) => {
+      const itemCenter = item.offsetLeft + item.clientWidth / 2;
+      const containerCenter = scrollLeft + containerWidth / 2;
+      const distance = Math.abs(itemCenter - containerCenter);
+
+      if (distance < minDistance) {
+        minDistance = distance;
+        centerIndex = index;
+      }
+    });
+
+    // Update background index if changed
+    if (centerIndex !== currentBgIndex.value) {
+      currentBgIndex.value = centerIndex;
+    }
+  };
+
+  // Add mobile scroll listener if on mobile
+  nextTick(() => {
+    if (isMobile.value && mobileScrollContainer.value) {
+      mobileScrollContainer.value.addEventListener(
+        "scroll",
+        handleMobileScroll
+      );
+    }
+  });
+
   onBeforeUnmount(() => {
     window.removeEventListener("scroll", handleScroll);
     window.removeEventListener("resize", setupActivityScroll);
+    if (mobileScrollContainer.value) {
+      mobileScrollContainer.value.removeEventListener(
+        "scroll",
+        handleMobileScroll
+      );
+    }
   });
 });
 </script>
@@ -479,39 +555,18 @@ onMounted(() => {
     flex: 0 0 75vw;
     min-height: 70vh;
     border-radius: 20px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    padding-left: 0.5rem;
+    justify-content: center;
+    padding: 1rem;
     overflow: hidden;
     transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     scroll-snap-align: center;
-  }
-
-  .mobile-activity-item::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.8) 0%,
-      rgba(0, 0, 0, 0.5) 45%,
-      rgba(0, 0, 0, 0.2) 70%,
-      rgba(0, 0, 0, 0.1) 100%
-    );
-    z-index: 1;
+    cursor: pointer;
   }
 
   .mobile-activity-item:hover {
     transform: scale(1.02);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
   }
 
   .mobile-smallpicture-wrapper {
@@ -519,14 +574,16 @@ onMounted(() => {
     z-index: 10;
     width: 100%;
     max-width: 400px;
-    margin-left: 0;
-    margin-right: auto;
+    margin: 0 auto;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 15px;
     padding: 1.5rem;
     border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .mobile-smallpicture-wrapper:hover {
@@ -583,7 +640,7 @@ onMounted(() => {
   .mobile-activity-item {
     flex: 0 0 80vw;
     min-height: 65vh;
-    padding-left: 0.25rem;
+    padding: 0.75rem;
   }
 
   .mobile-smallpicture-wrapper {
@@ -610,7 +667,7 @@ onMounted(() => {
   .mobile-activity-item {
     flex: 0 0 85vw;
     min-height: 60vh;
-    padding-left: 0.25rem;
+    padding: 0.5rem;
   }
 
   .mobile-smallpicture-wrapper {
