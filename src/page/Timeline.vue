@@ -101,21 +101,67 @@
       class="flex-1 flex justify-center items-center w-full lg:w-auto mt-4 lg:mt-0"
     >
       <div
-        class="bg-[#214159] bg-opacity-90 w-full max-w-[350px] lg:max-w-[600px] lg:w-[600px] h-[300px] lg:h-[400px] p-4 lg:p-6 rounded-lg transition-all duration-300 ease-in-out mx-4 lg:mx-0"
+        class="relative bg-gradient-to-br from-[#214159] via-[#2d5a7b] to-[#1a3349] bg-opacity-95 backdrop-blur-sm w-full max-w-[350px] lg:max-w-[600px] lg:w-[600px] min-h-[300px] lg:min-h-[400px] p-4 lg:p-6 rounded-xl shadow-2xl border border-[#3a6b8c] border-opacity-30 transition-all duration-500 ease-in-out mx-4 lg:mx-0 hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)] hover:scale-[1.02] overflow-hidden"
       >
+        <!-- Background pattern overlay -->
+        <div class="absolute inset-0 opacity-10">
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-transparent via-[#dffbff]/5 to-transparent"
+          ></div>
+          <div
+            class="absolute top-4 right-4 w-2 h-2 bg-[#dffbff]/20 rounded-full animate-pulse"
+          ></div>
+          <div
+            class="absolute bottom-6 left-6 w-1 h-1 bg-[#dffbff]/30 rounded-full animate-pulse delay-1000"
+          ></div>
+        </div>
+
+        <!-- Glowing border effect -->
+        <div
+          class="absolute inset-0 rounded-xl bg-gradient-to-r from-[#dffbff] via-transparent to-[#dffbff] opacity-20 blur-sm"
+        ></div>
+        <div
+          class="absolute inset-[1px] rounded-xl bg-gradient-to-br from-[#214159] via-[#2d5a7b] to-[#1a3349]"
+        ></div>
         <Transition name="detail-content" mode="out-in">
-          <div :key="selectedRound" class="h-full flex flex-col">
-            <h2
-              class="text-[#dffbff] text-lg lg:text-2xl font-bold mb-2 text-left transition-all duration-300 ease-in-out transform"
-            >
-              {{ rounds[selectedRound].timeframe.toUpperCase() }}
-            </h2>
+          <div :key="selectedRound" class="relative h-full flex flex-col z-10">
+            <!-- Title with enhanced styling -->
+            <div class="mb-4">
+              <h2
+                class="text-[#dffbff] text-lg lg:text-2xl font-bold mb-2 text-left transition-all duration-300 ease-in-out transform bg-gradient-to-r from-[#dffbff] to-[#87ceeb] bg-clip-text text-transparent drop-shadow-sm"
+              >
+                {{ rounds[selectedRound].timeframe.toUpperCase() }}
+              </h2>
+              <div
+                class="w-16 h-0.5 bg-gradient-to-r from-[#dffbff] to-transparent rounded-full"
+              ></div>
+            </div>
+
+            <!-- Content with enhanced styling -->
             <div
-              class="text-white text-xs lg:text-sm leading-relaxed text-left overflow-y-auto max-h-[200px] lg:max-h-[300px] transition-all duration-300 ease-in-out transform flex-1"
+              class="text-white/90 text-xs lg:text-sm leading-relaxed text-left transition-all duration-300 ease-in-out transform flex-1"
             >
-              <pre class="whitespace-pre-wrap font-sans">{{
-                rounds[selectedRound].detail
-              }}</pre>
+              <div class="space-y-3">
+                <pre
+                  class="whitespace-pre-wrap font-sans leading-loose text-white/95 selection:bg-[#dffbff]/20"
+                  >{{ rounds[selectedRound].detail }}</pre
+                >
+              </div>
+            </div>
+
+            <!-- Decorative bottom element -->
+            <div class="mt-4 flex justify-end">
+              <div class="flex space-x-1">
+                <div
+                  class="w-2 h-2 bg-[#dffbff]/40 rounded-full animate-pulse"
+                ></div>
+                <div
+                  class="w-2 h-2 bg-[#dffbff]/60 rounded-full animate-pulse delay-200"
+                ></div>
+                <div
+                  class="w-2 h-2 bg-[#dffbff]/80 rounded-full animate-pulse delay-500"
+                ></div>
+              </div>
             </div>
           </div>
         </Transition>
@@ -182,13 +228,21 @@ Hình thức thi: Cá nhân.`,
 
 const selectedRound = ref(0); // mặc định Vòng 1
 const timeline = ref(null);
-const translateY = ref(0);
+// Set initial position để timeline hiển thị ngay lập tức với VÒNG 1 visible
+const translateY = ref(-5500); // Position để timeline hiển thị ngay với VÒNG 1
 
 // Tạo infinite rounds bằng cách duplicate rounds nhiều lần
 const infiniteRounds = ref([]);
 const REPEAT_COUNT = 20; // Tăng số lần lặp lại
 const MIDDLE_START = 10; // Vị trí giữa để bắt đầu
 const isScrolling = ref(false);
+
+// Khởi tạo ngay lập tức để đảm bảo timeline có content
+(() => {
+  for (let i = 0; i < REPEAT_COUNT; i++) {
+    infiniteRounds.value.push(...rounds.value);
+  }
+})();
 
 // Function để lấy real index từ infinite index
 const getRealIndex = (infiniteIndex) => {
@@ -202,7 +256,9 @@ const checkAndResetPosition = () => {
   const currentTranslate = translateY.value;
   const itemHeight = 120; // Ước tính height của mỗi timeline item (100px + margin)
   const totalHeight = infiniteRounds.value.length * itemHeight;
-  const centerPosition = -(MIDDLE_START * rounds.value.length * itemHeight);
+  const viewportCenterY = window.innerHeight / 2;
+  const centerPosition =
+    viewportCenterY - MIDDLE_START * rounds.value.length * itemHeight + 300;
 
   // Nếu scroll quá xa khỏi center, reset về center với same visual position
   const threshold = totalHeight * 0.3; // 30% của total height
@@ -305,30 +361,31 @@ const handleWheel = (event) => {
   }, 200);
 };
 
-onMounted(() => {
-  // Khởi tạo infinite rounds
-  infiniteRounds.value = [];
-  for (let i = 0; i < REPEAT_COUNT; i++) {
-    infiniteRounds.value.push(...rounds.value);
+onMounted(async () => {
+  // Đợi DOM render
+  await nextTick();
+
+  // Add event listeners
+  const timelineContainer = document.querySelector(
+    ".timeline-scroll-container"
+  );
+  if (timelineContainer) {
+    timelineContainer.addEventListener("wheel", handleWheel, {
+      passive: false,
+    });
   }
 
-  // Đặt vị trí ban đầu ở giữa để có thể scroll cả 2 hướng
-  const middleStartIndex =
-    MIDDLE_START * rounds.value.length + selectedRound.value;
+  // Tự động scroll đến VÒNG 1 ở giữa infinite list sau một delay ngắn để tạo hiệu ứng
+  setTimeout(() => {
+    const itemHeight = 120;
+    const middleStartIndex =
+      MIDDLE_START * rounds.value.length + selectedRound.value;
+    const viewportCenterY = window.innerHeight / 2;
 
-  nextTick(() => {
-    selectRound(selectedRound.value, middleStartIndex);
-
-    // Add wheel event listener to the timeline container
-    const timelineContainer = document.querySelector(
-      ".timeline-scroll-container"
-    );
-    if (timelineContainer) {
-      timelineContainer.addEventListener("wheel", handleWheel, {
-        passive: false,
-      });
-    }
-  });
+    // Smooth scroll đến center position - VÒNG 1 ở giữa infinite list
+    // Giảm translateY để VÒNG 1 không bị cụt ở dưới
+    translateY.value = viewportCenterY - middleStartIndex * itemHeight + 300;
+  }, 300);
 });
 
 onBeforeUnmount(() => {
@@ -365,6 +422,12 @@ onBeforeUnmount(() => {
 /* Timeline container smooth scrolling */
 .relative.flex.flex-col.items-start {
   transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Đảm bảo timeline container luôn visible */
+.timeline-scroll-container {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* Detail Box smooth transitions */
