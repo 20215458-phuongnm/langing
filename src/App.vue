@@ -256,6 +256,15 @@ onMounted(() => {
   background-attachment: fixed;
 }
 
+/* Mobile background adjustments */
+@media (max-width: 768px) {
+  .custom-bg {
+    background-attachment: scroll; /* Fix mobile background issues */
+    background-size: cover;
+    background-position: center center; /* Better centering on mobile */
+  }
+}
+
 /* Ẩn scrollbar của body khi cần */
 :global(body) {
   scrollbar-width: none; /* Firefox */
