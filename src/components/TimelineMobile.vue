@@ -8,10 +8,10 @@
       <!-- Timeline ở trên - Horizontal -->
       <div class="flex-shrink-0 px-4 pt-4 pb-6">
         <div class="relative">
-          <!-- Đường line ngang - Goes through rocks -->
+          <!-- Đường line ngang - Full screen width -->
           <div
-            class="absolute left-0 right-0 h-[3px] bg-white z-0"
-            style="top: 32px"
+            class="absolute h-[3px] bg-white z-0"
+            style="top: 32px; left: -100vw; right: -100vw; width: 200vw"
           ></div>
 
           <!-- Timeline items nằm ngang -->
