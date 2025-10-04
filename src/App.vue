@@ -284,6 +284,15 @@ onMounted(() => {
   transition: background-image 0.3s ease;
 }
 
+/* Mobile-specific background styling */
+@media (max-width: 768px) {
+  .custom-bg {
+    background-size: contain; /* Use contain instead of cover for mobile */
+    background-position: center center; /* Center the image */
+    background-attachment: scroll; /* Better performance on mobile */
+  }
+}
+
 /* Ẩn scrollbar của body khi cần */
 :global(body) {
   scrollbar-width: none; /* Firefox */
