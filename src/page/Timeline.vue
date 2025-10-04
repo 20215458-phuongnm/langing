@@ -5,22 +5,24 @@
   <!-- Desktop Version -->
   <div
     v-else
-    class="relative flex flex-col lg:flex-row justify-between items-center h-screen bg-cover bg-center bg-no-repeat overflow-hidden px-4 lg:px-20"
+    class="relative flex flex-col lg:flex-row justify-center items-center h-screen bg-cover bg-center bg-no-repeat overflow-hidden px-4 md:px-8 lg:px-12 xl:px-20 2xl:px-32"
     :style="{ backgroundImage: `url(${backgroundImage})` }"
   >
     <!-- Phần bên trái - Timeline -->
-    <div class="flex-1 flex justify-center items-center w-full lg:w-auto">
+    <div
+      class="flex justify-center items-center w-full md:w-auto lg:w-auto lg:flex-shrink-0"
+    >
       <!-- Ô hình chữ nhật border trắng cố định -->
       <!-- <div
         class="absolute border-4 border-white w-[220px] h-[100px] z-20 -translate-x-32"
       ></div> -->
 
       <!-- Timeline container wrapper -->
-      <div class="mt-4 lg:mt-[470px] timeline-scroll-container">
+      <div class="mt-4 md:mt-8 lg:mt-[470px] timeline-scroll-container">
         <!-- Timeline container -->
         <div
           ref="timeline"
-          class="relative flex flex-col items-start transition-transform duration-700 ml-4 lg:ml-19"
+          class="relative flex flex-col items-start transition-transform duration-700 ml-4 md:ml-6 lg:ml-8 xl:ml-19"
           :style="{ transform: `translateY(${translateY}px)` }"
         >
           <!-- Đường line dọc kéo dài toàn background -->
@@ -103,10 +105,10 @@
 
     <!-- Phần bên phải - Detail Box -->
     <div
-      class="flex-1 flex justify-center items-center w-full lg:w-auto mt-4 lg:mt-0"
+      class="flex justify-center items-center w-full md:w-auto lg:w-auto mt-4 md:mt-6 lg:mt-0 md:ml-8 lg:ml-16 xl:ml-24 2xl:ml-36"
     >
       <div
-        class="relative bg-gradient-to-br from-[#214159] via-[#2d5a7b] to-[#1a3349] bg-opacity-95 backdrop-blur-sm w-full max-w-[350px] lg:max-w-[600px] lg:w-[600px] min-h-[300px] lg:min-h-[400px] p-4 lg:p-6 rounded-xl shadow-2xl border border-[#3a6b8c] border-opacity-30 transition-all duration-500 ease-in-out mx-4 lg:mx-0 hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)] hover:scale-[1.02] overflow-hidden"
+        class="relative bg-gradient-to-br from-[#214159] via-[#2d5a7b] to-[#1a3349] bg-opacity-95 backdrop-blur-sm w-full max-w-[350px] md:max-w-[450px] lg:max-w-[500px] xl:max-w-[600px] lg:w-[500px] xl:w-[600px] min-h-[300px] md:min-h-[350px] lg:min-h-[400px] p-4 md:p-5 lg:p-6 rounded-xl shadow-2xl border border-[#3a6b8c] border-opacity-30 transition-all duration-500 ease-in-out mx-4 md:mx-2 lg:mx-0 hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)] hover:scale-[1.02] overflow-hidden"
       >
         <!-- Background pattern overlay -->
         <div class="absolute inset-0 opacity-10">
@@ -185,9 +187,10 @@ import { ref, onMounted, onBeforeUnmount, nextTick, computed } from "vue";
 import backgroundImage from "@/assets/back.png";
 import TimelineMobile from "@/components/TimelineMobile.vue";
 
-// Mobile detection
+// Mobile detection with better responsive handling including small desktops
 const isMobile = computed(() => {
   if (typeof window !== "undefined") {
+    // Switch to mobile layout for screens smaller than 1024px (tablets and small desktops)
     return window.innerWidth < 1024;
   }
   return false;
