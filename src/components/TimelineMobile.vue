@@ -6,15 +6,18 @@
     <!-- Main content container -->
     <div class="flex flex-col w-full max-w-md">
       <!-- Timeline ở trên - Horizontal -->
-      <div class="flex-shrink-0 px-4 pt-4">
+      <div class="flex-shrink-0 px-4 pt-4 pb-6">
         <div class="relative">
-          <!-- Đường line ngang - HIDDEN -->
-          <!-- <div
-          class="absolute top-1/2 left-0 right-0 h-[3px] bg-white transform -translate-y-1/2 z-0"
-        ></div> -->
+          <!-- Đường line ngang - Goes through rocks -->
+          <div
+            class="absolute left-0 right-0 h-[3px] bg-white z-0"
+            style="top: 32px"
+          ></div>
 
           <!-- Timeline items nằm ngang -->
-          <div class="flex justify-between items-center relative z-10 py-4">
+          <div
+            class="flex justify-between items-start relative z-10 py-4 min-h-[100px]"
+          >
             <div
               v-for="(round, index) in rounds"
               :key="`mobile-round-${index}`"
@@ -57,7 +60,7 @@
               <!-- Description cho active item -->
               <div
                 v-if="index === selectedRound"
-                class="text-white text-[9px] font-medium mt-1 text-center max-w-[70px] leading-tight animate-fade-in h-[20px] flex items-center justify-center"
+                class="text-white text-[9px] font-medium mt-1 text-center max-w-[70px] leading-tight animate-fade-in min-h-[20px] flex items-center justify-center"
               >
                 <span class="whitespace-pre-line">{{ round.description }}</span>
               </div>
@@ -67,7 +70,7 @@
       </div>
 
       <!-- Detail Box ở dưới -->
-      <div class="flex items-start justify-center px-4 pt-6 pb-4">
+      <div class="flex items-start justify-center px-4 pt-2 pb-4">
         <div
           class="relative bg-gradient-to-br from-[#214159] via-[#2d5a7b] to-[#1a3349] bg-opacity-95 backdrop-blur-sm w-full max-w-[380px] h-[420px] p-4 rounded-xl shadow-2xl border border-[#3a6b8c] border-opacity-30 transition-all duration-500 ease-in-out hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)] overflow-hidden"
         >
