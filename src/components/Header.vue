@@ -5,7 +5,10 @@
   >
     <div class="flex justify-between items-center">
       <!-- Logo -->
-      <div class="flex items-center gap-2">
+      <div
+        class="flex items-center gap-2 cursor-pointer"
+        @click="goToTopAndReload"
+      >
         <img src="@/assets/logo.png" alt="Logo" class="h-10 w-auto" />
       </div>
 
@@ -142,28 +145,95 @@ const closeMobileMenu = () => {
   isMobileMenuOpen.value = false;
 };
 
+// Logo click handler
+const goToTopAndReload = () => {
+  // Smooth animated scroll to top
+  const scrollToTop = () => {
+    const currentScroll =
+      document.documentElement.scrollTop || document.body.scrollTop;
+
+    if (currentScroll > 0) {
+      // Custom smooth scroll with easing
+      const scrollStep = Math.ceil(currentScroll / 15); // Slower, smoother steps
+      window.scrollTo(0, currentScroll - scrollStep);
+      requestAnimationFrame(scrollToTop);
+    } else {
+      // Ensure we're at absolute top
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      window.scrollTo(0, 0);
+
+      // Reload after smooth scroll completes
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+    }
+  };
+
+  // Start the smooth scroll animation
+  scrollToTop();
+};
+
 // Scroll functions for navigation
 const scrollToAboutUs = () => {
-  const horizontalSection = document.querySelector(".horizontal-section");
-  if (horizontalSection) {
-    // Reset horizontal scroll to show AboutUs
-    horizontalSection.scrollLeft = 0;
-    // Scroll to the horizontal section
-    horizontalSection.scrollIntoView({ behavior: "smooth" });
+  // Check if mobile
+  const isMobile = window.innerWidth <= 768;
+
+  if (isMobile) {
+    // Mobile: scroll to vertical AboutUs section
+    const aboutUsSection = document.querySelector(
+      ".mobile-section:first-child"
+    );
+    if (aboutUsSection) {
+      aboutUsSection.scrollIntoView({ behavior: "smooth" });
+    }
+  } else {
+    // Desktop: scroll to AboutUs section directly
+    const horizontalSection = document.querySelector(
+      ".horizontal-scroll-section"
+    );
+    if (horizontalSection) {
+      // Calculate position to show AboutUs (first item)
+      const rect = horizontalSection.getBoundingClientRect();
+      const scrollTop = window.pageYOffset + rect.top;
+
+      window.scrollTo({
+        top: scrollTop,
+        behavior: "smooth",
+      });
+    }
   }
 };
 
 const scrollToAboutContest = () => {
-  const horizontalSection = document.querySelector(".horizontal-section");
-  if (horizontalSection) {
-    // Scroll to the horizontal section first
-    horizontalSection.scrollIntoView({ behavior: "smooth" });
-    // Then scroll horizontally to AboutContest after a delay
-    setTimeout(() => {
-      const maxScrollLeft =
-        horizontalSection.scrollWidth - horizontalSection.clientWidth;
-      horizontalSection.scrollLeft = maxScrollLeft;
-    }, 500);
+  // Check if mobile
+  const isMobile = window.innerWidth <= 768;
+
+  if (isMobile) {
+    // Mobile: scroll to vertical AboutContest section
+    const aboutContestSection = document.querySelector(
+      ".mobile-section:nth-child(2)"
+    );
+    if (aboutContestSection) {
+      aboutContestSection.scrollIntoView({ behavior: "smooth" });
+    }
+  } else {
+    // Desktop: scroll to position that shows AboutContest
+    const horizontalSection = document.querySelector(
+      ".horizontal-scroll-section"
+    );
+    if (horizontalSection) {
+      // Calculate position to show AboutContest (second item)
+      // Need to scroll deeper into the horizontal section to trigger AboutContest
+      const rect = horizontalSection.getBoundingClientRect();
+      const sectionHeight = horizontalSection.offsetHeight;
+      const scrollTop = window.pageYOffset + rect.top + sectionHeight * 0.5;
+
+      window.scrollTo({
+        top: scrollTop,
+        behavior: "smooth",
+      });
+    }
   }
 };
 

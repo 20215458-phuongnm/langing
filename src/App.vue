@@ -62,14 +62,14 @@
         </div>
       </div>
 
-      <Prize class="mt-16" />
+      <Prize class="mt-32 md:mt-60 mb-20 md:mb-40" />
 
       <!-- Activity Section -->
 
       <!-- Description -->
       <section
         ref="descriptionSection"
-        class="relative py-16 px-4 md:px-16 description-container"
+        class="relative py-16 px-4 md:px-16 description-container md:mt-24"
         :class="{ 'description-visible': isDescriptionVisible }"
       >
         <div class="max-w-5xl mx-auto text-center py-16">
@@ -117,11 +117,11 @@
           </div>
         </div>
       </section>
-      <Activity />
-      <Title text="THỂ LỆ" class="mt-40 mb-12" />
-      <Timeline class="mt-16" />
-      <Unit class="mt-16" />
-      <Footer class="mt-16" />
+      <Activity class="mt-32 md:mt-48 mb-24 md:mb-48" />
+      <Title text="THỂ LỆ" class="mt-40 mb-12 md:mt-60 md:mb-20" />
+      <Timeline class="mt-16 md:mt-32 mb-20" />
+      <Unit class="mt-32 md:mt-56 mb-32 md:mb-56" />
+      <Footer class="mt-20 md:mt-40" />
     </div>
 
     <!-- Floating Button -->

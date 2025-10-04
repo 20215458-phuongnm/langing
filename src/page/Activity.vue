@@ -515,6 +515,9 @@ onMounted(() => {
     padding-bottom: 0;
     padding-left: 0;
     padding-right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
   }
 
   .mobile-activity-header {
@@ -532,6 +535,9 @@ onMounted(() => {
 
   .mobile-activity-content {
     padding: 1rem 0 2rem 0;
+    flex: 1;
+    display: flex;
+    align-items: center; /* Center the horizontal scroll container */
   }
 
   .mobile-horizontal-scroll-container {
@@ -553,7 +559,7 @@ onMounted(() => {
   .mobile-activity-item {
     position: relative;
     flex: 0 0 75vw;
-    min-height: 70vh;
+    height: 300px; /* Fixed height instead of min-height for better centering */
     border-radius: 20px;
     display: flex;
     align-items: center;

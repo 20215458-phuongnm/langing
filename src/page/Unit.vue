@@ -63,6 +63,11 @@ import Chip from "@/components/Chip.vue";
   align-items: center;
   padding: 60px 20px;
   overflow-x: hidden;
+
+  /* Enhanced page entrance animation */
+  animation: pageEntrance 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  opacity: 0;
+  transform: scale(0.95);
 }
 
 .bg-overlay {
@@ -83,6 +88,12 @@ import Chip from "@/components/Chip.vue";
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  /* Container entrance effect */
+  animation: containerSlideIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  opacity: 0;
+  transform: translateY(30px);
+  animation-delay: 0.3s;
 }
 
 .main-title {
@@ -185,39 +196,92 @@ import Chip from "@/components/Chip.vue";
   }
 }
 
-/* Animation cho các section khi load */
+/* Enhanced Animation cho các section khi load - fade từ dưới lên */
 .sponsor-section {
-  animation: fadeInUp 0.6s ease-out forwards;
+  animation: dramaticFadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(80px) scale(0.9);
+  visibility: hidden;
+  filter: blur(3px);
 }
 
 .sponsor-section:nth-child(2) {
-  animation-delay: 0.1s;
+  animation-delay: 0.8s;
 }
 .sponsor-section:nth-child(3) {
-  animation-delay: 0.2s;
+  animation-delay: 1s;
 }
 .sponsor-section:nth-child(4) {
-  animation-delay: 0.3s;
+  animation-delay: 1.2s;
 }
 .sponsor-section:nth-child(5) {
-  animation-delay: 0.4s;
+  animation-delay: 1.4s;
 }
 .sponsor-section:nth-child(6) {
-  animation-delay: 0.5s;
+  animation-delay: 1.6s;
 }
 
-@keyframes fadeInUp {
-  to {
+@keyframes dramaticFadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(80px) scale(0.9);
+    visibility: hidden;
+    filter: blur(3px);
+  }
+  20% {
+    visibility: visible;
+    opacity: 0.3;
+    filter: blur(2px);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(10px) scale(0.98);
+    filter: blur(1px);
+  }
+  100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+    visibility: visible;
+    filter: blur(0);
   }
 }
 
-/* Main title animation */
+/* Enhanced Main title animation - fade từ dưới lên */
 .main-title {
-  animation: titleGlow 2s ease-in-out infinite alternate;
+  animation: dramaticTitleEntrance 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+      forwards,
+    titleGlow 2s ease-in-out infinite alternate 2s;
+  opacity: 0;
+  transform: translateY(50px) scale(0.8);
+  visibility: hidden;
+  filter: blur(4px);
+  animation-delay: 0.5s;
+}
+
+@keyframes dramaticTitleEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.8);
+    visibility: hidden;
+    filter: blur(4px);
+  }
+  25% {
+    visibility: visible;
+    opacity: 0.4;
+    transform: translateY(30px) scale(0.9);
+    filter: blur(2px);
+  }
+  70% {
+    opacity: 0.9;
+    transform: translateY(-5px) scale(1.05);
+    filter: blur(0.5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    visibility: visible;
+    filter: blur(0);
+  }
 }
 
 @keyframes titleGlow {
@@ -226,6 +290,30 @@ import Chip from "@/components/Chip.vue";
   }
   to {
     text-shadow: 0 0 6px #dffbff, 0 0 12px #dffbff, 0 0 18px #dffbff;
+  }
+}
+
+/* Page entrance animation */
+@keyframes pageEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Container slide in animation */
+@keyframes containerSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>

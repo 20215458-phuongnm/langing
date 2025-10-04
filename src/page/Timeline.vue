@@ -1,5 +1,10 @@
 <template>
+  <!-- Mobile Version -->
+  <TimelineMobile v-if="isMobile" />
+
+  <!-- Desktop Version -->
   <div
+    v-else
     class="relative flex flex-col lg:flex-row justify-between items-center h-screen bg-cover bg-center bg-no-repeat overflow-hidden px-4 lg:px-20"
     :style="{ backgroundImage: `url(${backgroundImage})` }"
   >
@@ -124,9 +129,12 @@
           class="absolute inset-[1px] rounded-xl bg-gradient-to-br from-[#214159] via-[#2d5a7b] to-[#1a3349]"
         ></div>
         <Transition name="detail-content" mode="out-in">
-          <div :key="selectedRound" class="relative h-full flex flex-col z-10">
+          <div
+            :key="selectedRound"
+            class="relative h-full flex flex-col z-10 w-full items-center"
+          >
             <!-- Title with enhanced styling -->
-            <div class="mb-4">
+            <div class="mb-4 w-full max-w-[300px] lg:max-w-[520px]">
               <h2
                 class="text-[#dffbff] text-lg lg:text-2xl font-bold mb-2 text-left transition-all duration-300 ease-in-out transform bg-gradient-to-r from-[#dffbff] to-[#87ceeb] bg-clip-text text-transparent drop-shadow-sm"
               >
@@ -139,7 +147,7 @@
 
             <!-- Content with enhanced styling -->
             <div
-              class="text-white/90 text-xs lg:text-sm leading-relaxed text-left transition-all duration-300 ease-in-out transform flex-1"
+              class="text-white/90 text-xs lg:text-sm leading-relaxed text-left transition-all duration-300 ease-in-out transform flex-1 w-full max-w-[300px] lg:max-w-[520px]"
             >
               <div class="space-y-3">
                 <pre
@@ -150,7 +158,9 @@
             </div>
 
             <!-- Decorative bottom element -->
-            <div class="mt-4 flex justify-end">
+            <div
+              class="mt-4 flex justify-end w-full max-w-[300px] lg:max-w-[520px]"
+            >
               <div class="flex space-x-1">
                 <div
                   class="w-2 h-2 bg-[#dffbff]/40 rounded-full animate-pulse"
@@ -171,8 +181,17 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount, nextTick } from "vue";
+import { ref, onMounted, onBeforeUnmount, nextTick, computed } from "vue";
 import backgroundImage from "@/assets/back.png";
+import TimelineMobile from "@/components/TimelineMobile.vue";
+
+// Mobile detection
+const isMobile = computed(() => {
+  if (typeof window !== "undefined") {
+    return window.innerWidth < 1024;
+  }
+  return false;
+});
 
 const rounds = ref([
   {
@@ -362,38 +381,44 @@ const handleWheel = (event) => {
 };
 
 onMounted(async () => {
-  // Đợi DOM render
-  await nextTick();
+  // Chỉ chạy logic desktop khi không phải mobile
+  if (!isMobile.value) {
+    // Đợi DOM render
+    await nextTick();
 
-  // Add event listeners
-  const timelineContainer = document.querySelector(
-    ".timeline-scroll-container"
-  );
-  if (timelineContainer) {
-    timelineContainer.addEventListener("wheel", handleWheel, {
-      passive: false,
-    });
+    // Add event listeners
+    const timelineContainer = document.querySelector(
+      ".timeline-scroll-container"
+    );
+    if (timelineContainer) {
+      timelineContainer.addEventListener("wheel", handleWheel, {
+        passive: false,
+      });
+    }
+
+    // Tự động scroll đến VÒNG 1 ở giữa infinite list sau một delay ngắn để tạo hiệu ứng
+    setTimeout(() => {
+      const itemHeight = 120;
+      const middleStartIndex =
+        MIDDLE_START * rounds.value.length + selectedRound.value;
+      const viewportCenterY = window.innerHeight / 2;
+
+      // Smooth scroll đến center position - VÒNG 1 ở giữa infinite list
+      // Giảm translateY để VÒNG 1 không bị cụt ở dưới
+      translateY.value = viewportCenterY - middleStartIndex * itemHeight + 300;
+    }, 300);
   }
-
-  // Tự động scroll đến VÒNG 1 ở giữa infinite list sau một delay ngắn để tạo hiệu ứng
-  setTimeout(() => {
-    const itemHeight = 120;
-    const middleStartIndex =
-      MIDDLE_START * rounds.value.length + selectedRound.value;
-    const viewportCenterY = window.innerHeight / 2;
-
-    // Smooth scroll đến center position - VÒNG 1 ở giữa infinite list
-    // Giảm translateY để VÒNG 1 không bị cụt ở dưới
-    translateY.value = viewportCenterY - middleStartIndex * itemHeight + 300;
-  }, 300);
 });
 
 onBeforeUnmount(() => {
-  const timelineContainer = document.querySelector(
-    ".timeline-scroll-container"
-  );
-  if (timelineContainer) {
-    timelineContainer.removeEventListener("wheel", handleWheel);
+  // Chỉ cleanup event listeners cho desktop
+  if (!isMobile.value) {
+    const timelineContainer = document.querySelector(
+      ".timeline-scroll-container"
+    );
+    if (timelineContainer) {
+      timelineContainer.removeEventListener("wheel", handleWheel);
+    }
   }
 });
 </script>
@@ -499,34 +524,5 @@ onBeforeUnmount(() => {
   transform: translateY(-10px) scale(0.98);
 }
 
-/* Mobile Responsive Styles */
-@media (max-width: 1023px) {
-  .timeline-scroll-container {
-    max-height: 40vh;
-    overflow: hidden;
-  }
-
-  /* Adjust timeline item spacing for mobile */
-  .relative.flex.items-center.cursor-pointer {
-    margin-bottom: 1rem;
-  }
-
-  /* Mobile-specific text shadows */
-  .timeline-item-active .text-\[\#dffbff\] {
-    text-shadow: 0 0 10px #dffbff, 0 0 15px #dffbff, 0 0 20px #dffbff !important;
-  }
-
-  /* Reduce hover effects on mobile */
-  .relative.flex.items-center.cursor-pointer:hover {
-    transform: scale(1.02);
-    filter: brightness(1.05);
-  }
-}
-
-/* Tablet styles */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .timeline-scroll-container {
-    max-height: 50vh;
-  }
-}
+/* Desktop only styles - Mobile uses separate component */
 </style>
