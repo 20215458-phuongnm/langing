@@ -1,5 +1,8 @@
 <template>
-  <div class="relative min-h-screen custom-bg">
+  <div
+    class="relative min-h-screen custom-bg"
+    :style="{ backgroundImage: `url(${backgroundImage})` }"
+  >
     <!-- Video overlay -->
     <!-- <video
       autoplay
@@ -134,7 +137,7 @@
 </template>
 
 <script setup>
-import { onMounted, onBeforeUnmount, ref } from "vue";
+import { onMounted, onBeforeUnmount, ref, computed } from "vue";
 
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
@@ -147,6 +150,23 @@ import Activity from "./page/Activity.vue";
 import Timeline from "./page/Timeline.vue";
 import Title from "./components/Title.vue";
 import Unit from "./page/Unit.vue";
+
+// Background images import
+import desktopBg from "@/assets/background.png";
+import mobileBg from "@/assets/background - mobile.png";
+
+// Mobile detection
+const isMobile = computed(() => {
+  if (typeof window !== "undefined") {
+    return window.innerWidth <= 768;
+  }
+  return false;
+});
+
+// Dynamic background based on screen size
+const backgroundImage = computed(() => {
+  return isMobile.value ? mobileBg : desktopBg;
+});
 
 const horizontalSection = ref(null);
 const descriptionSection = ref(null);
@@ -164,7 +184,7 @@ onMounted(() => {
   const el = horizontalSection.value;
   if (!el) return;
 
-  // Check if mobile
+  // Check if mobile (keeping this for existing horizontal scroll logic)
   const isMobile = () => window.innerWidth <= 768;
 
   const wrapper = el.querySelector(".horizontal-wrapper");
@@ -206,7 +226,15 @@ onMounted(() => {
 
   // Setup on load and resize
   setupHorizontalScroll();
-  window.addEventListener("resize", setupHorizontalScroll);
+
+  // Combined resize handler for both horizontal scroll and background
+  const handleResize = () => {
+    setupHorizontalScroll();
+    // Force reactivity update for background image
+    isMobile.value; // This triggers the computed property
+  };
+
+  window.addEventListener("resize", handleResize);
 
   // Handle scroll for horizontal effect
   const handleScroll = () => {
@@ -242,27 +270,18 @@ onMounted(() => {
 
   onBeforeUnmount(() => {
     window.removeEventListener("scroll", handleScroll);
-    window.removeEventListener("resize", setupHorizontalScroll);
+    window.removeEventListener("resize", handleResize);
   });
 });
 </script>
 
 <style scoped>
 .custom-bg {
-  background-image: url("@/assets/background.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center top;
   background-attachment: fixed;
-}
-
-/* Mobile background adjustments */
-@media (max-width: 768px) {
-  .custom-bg {
-    background-attachment: scroll; /* Fix mobile background issues */
-    background-size: cover;
-    background-position: center center; /* Better centering on mobile */
-  }
+  transition: background-image 0.3s ease;
 }
 
 /* Ẩn scrollbar của body khi cần */
