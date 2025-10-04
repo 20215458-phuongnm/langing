@@ -287,9 +287,26 @@ onMounted(() => {
 /* Mobile-specific background styling */
 @media (max-width: 768px) {
   .custom-bg {
-    background-size: contain; /* Use contain instead of cover for mobile */
+    background-size: cover; /* Fill entire screen */
     background-position: center center; /* Center the image */
-    background-attachment: scroll; /* Better performance on mobile */
+    background-attachment: fixed; /* Stay fixed when scrolling */
+    min-height: 100vh; /* Ensure full viewport height */
+    width: 100vw; /* Ensure full viewport width */
+  }
+
+  /* Additional mobile background fixes */
+  .custom-bg::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: inherit;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    z-index: -1;
   }
 }
 
