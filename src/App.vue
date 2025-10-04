@@ -1,7 +1,10 @@
 <template>
   <div
     class="relative min-h-screen custom-bg"
-    :style="{ backgroundImage: `url(${backgroundImage})` }"
+    :style="{
+      backgroundImage: `url(${backgroundImage})`,
+      '--mobile-bg': `url(${mobileBg})`,
+    }"
   >
     <!-- Video overlay -->
     <!-- <video
@@ -287,26 +290,37 @@ onMounted(() => {
 /* Mobile-specific background styling */
 @media (max-width: 768px) {
   .custom-bg {
-    background-size: cover; /* Fill entire screen */
-    background-position: center center; /* Center the image */
-    background-attachment: fixed; /* Stay fixed when scrolling */
-    min-height: 100vh; /* Ensure full viewport height */
-    width: 100vw; /* Ensure full viewport width */
+    background: none !important; /* Remove background from main element */
+    background-attachment: scroll !important;
   }
 
-  /* Additional mobile background fixes */
+  /* Create a dedicated fixed background layer for mobile */
   .custom-bg::before {
     content: "";
     position: fixed;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
     width: 100vw;
     height: 100vh;
-    background-image: inherit;
+    background-image: var(--mobile-bg);
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     z-index: -1;
+    pointer-events: none; /* Allow interaction with content above */
+  }
+
+  /* Ensure the fixed background stays in viewport */
+  .custom-bg::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
   }
 }
 
