@@ -60,37 +60,18 @@ const targetTimestamp = targetDate.getTime();
 
 .glass-card {
   position: relative;
-  background: 
-    /* Pure white base with subtle gradient */ linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.98) 0%,
-    rgba(248, 250, 252, 0.95) 50%,
-    rgba(255, 255, 255, 0.98) 100%
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05)
   );
-  backdrop-filter: blur(15px) saturate(150%);
-  -webkit-backdrop-filter: blur(15px) saturate(150%);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   border-radius: 0px;
-  padding: 1rem 4rem;
-
-  /* Premium white card shadows */
-  box-shadow: 
-    /* Main depth shadow */ 0 25px 50px rgba(0, 0, 0, 0.08),
-    0 15px 35px rgba(0, 0, 0, 0.05), 0 5px 15px rgba(0, 0, 0, 0.04),
-    /* Inner white glow */ inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.02),
-    /* Outer subtle glow */ 0 0 50px rgba(255, 255, 255, 0.3);
-
-  /* Elegant border */
-  border: 2px solid;
-  border-image: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.8) 0%,
-      rgba(240, 245, 251, 0.6) 25%,
-      rgba(59, 130, 246, 0.1) 50%,
-      rgba(240, 245, 251, 0.6) 75%,
-      rgba(255, 255, 255, 0.8) 100%
-    )
-    1;
+  padding: 2rem 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
 
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: visible;
@@ -98,95 +79,15 @@ const targetTimestamp = targetDate.getTime();
   width: 100vw;
 }
 
-/* Subtle decorative pattern overlay */
-.glass-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: 
-    /* Subtle dot pattern */ radial-gradient(
-      circle at 25% 25%,
-      rgba(59, 130, 246, 0.03) 1px,
-      transparent 1px
-    ),
-    radial-gradient(
-      circle at 75% 75%,
-      rgba(251, 191, 36, 0.02) 1px,
-      transparent 1px
-    ),
-    /* Fine grid lines */
-      linear-gradient(90deg, rgba(255, 255, 255, 0.5) 1px, transparent 1px),
-    linear-gradient(0deg, rgba(240, 245, 251, 0.3) 1px, transparent 1px);
-  background-size: 40px 40px, 60px 60px, 20px 20px, 20px 20px;
-  opacity: 0.4;
-  pointer-events: none;
-  animation: subtleMove 30s linear infinite;
-}
-
-@keyframes subtleMove {
-  0% {
-    background-position: 0 0, 0 0, 0 0, 0 0;
-  }
-  100% {
-    background-position: 40px 40px, -60px 60px, 20px 20px, -20px 20px;
-  }
-}
-
-/* Outer glow ring */
-.glass-card::after {
-  content: "";
-  position: absolute;
-  inset: -3px;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.6) 0%,
-    rgba(59, 130, 246, 0.1) 25%,
-    rgba(251, 191, 36, 0.05) 50%,
-    rgba(59, 130, 246, 0.1) 75%,
-    rgba(255, 255, 255, 0.6) 100%
-  );
-  border-radius: 0px;
-  z-index: -1;
-  filter: blur(1px);
-  animation: gentleGlow 4s ease-in-out infinite alternate;
-}
-
-@keyframes gentleGlow {
-  0% {
-    opacity: 0.3;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0.6;
-    transform: scale(1.005);
-  }
-}
+/* Removed decorative patterns to keep simple glass effect */
 
 .glass-card:hover {
-  transform: translateY(-5px) scale(1.01);
-
-  box-shadow: 
-    /* Enhanced depth shadows */ 0 35px 70px rgba(0, 0, 0, 0.12),
-    0 20px 45px rgba(0, 0, 0, 0.08), 0 8px 25px rgba(0, 0, 0, 0.06),
-    /* Enhanced inner glow */ inset 0 2px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.03),
-    /* Premium outer glow */ 0 0 80px rgba(255, 255, 255, 0.4),
-    /* Subtle blue accent */ 0 0 120px rgba(59, 130, 246, 0.08);
-
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  transform: translateY(-5px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
 }
 
-.glass-card:hover::after {
-  opacity: 1;
-  animation-duration: 4s, 2s;
-  filter: blur(0.5px);
-}
-
-.glass-card:hover::before {
-  opacity: 0.6;
-  animation-duration: 15s;
-}
+/* Removed hover effects for decorative elements */
 
 .main-content {
   display: flex;
@@ -305,13 +206,11 @@ const targetTimestamp = targetDate.getTime();
   }
 
   .glass-card {
-    padding: 0.75rem 1.5rem;
+    padding: 1rem 1rem;
     min-width: 100vw;
     max-width: 100vw;
     width: 100vw;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15),
-      0 0 0 1px rgba(255, 255, 255, 0.1) inset,
-      0 0 30px rgba(255, 255, 255, 0.08);
+    border-radius: 0px;
   }
 
   .main-content {
@@ -331,18 +230,15 @@ const targetTimestamp = targetDate.getTime();
 
 @media (min-width: 641px) and (max-width: 768px) {
   .glass-card {
-    padding: 1rem 3rem;
+    padding: 1.5rem 1.5rem;
     max-width: 100vw;
     width: 100vw;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15),
-      0 0 0 1px rgba(255, 255, 255, 0.1) inset,
-      0 0 35px rgba(255, 255, 255, 0.08), 0 0 60px rgba(255, 255, 255, 0.04);
   }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
   .glass-card {
-    padding: 1rem 4rem;
+    padding: 1.75rem 2rem;
     max-width: 100vw;
     width: 100vw;
   }
@@ -350,7 +246,7 @@ const targetTimestamp = targetDate.getTime();
 
 @media (min-width: 1025px) {
   .glass-card {
-    padding: 1rem 5rem;
+    padding: 2rem 2.5rem;
     max-width: 100vw;
     width: 100vw;
   }
