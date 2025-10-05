@@ -2,30 +2,30 @@
   <footer id="contact" class="w-full bg-[#5f819b]/70 text-white py-12 px-6">
     <div class="max-w-full mx-auto px-4 lg:px-8">
       <!-- Phần tiêu đề liên hệ -->
- <div class="flex flex-col-reverse sm:flex-row justify-between items-start sm:items-center mb-8">
-  <!-- Logo + chữ thông tin liên hệ -->
-  <div class="flex items-center gap-2">
-    <img
-      src="@/assets/footer-logo.png"
-      alt="Footer Logo"
-      class="h-10 sm:h-12 w-auto"
-    />
-    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold">
-      THÔNG TIN LIÊN HỆ
-    </h2>
-  </div>
+      <div
+        class="flex flex-col-reverse sm:flex-row justify-between items-start sm:items-center mb-8"
+      >
+        <!-- Logo + chữ thông tin liên hệ -->
+        <div class="flex items-center gap-2">
+          <img
+            src="@/assets/footer-logo.png"
+            alt="Footer Logo"
+            class="h-10 sm:h-12 w-auto"
+          />
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold">
+            THÔNG TIN LIÊN HỆ
+          </h2>
+        </div>
 
-  <!-- Nút đăng ký ngay -->
-  <v-btn class="footer-register-btn mb-3 sm:mt-0">
-    Đăng ký ngay
-  </v-btn>
-</div>
+        <!-- Nút đăng ký ngay -->
+        <v-btn class="footer-register-btn mb-3 sm:mt-0"> Đăng ký ngay </v-btn>
+      </div>
 
       <!-- Nội dung chính -->
       <div class="flex flex-col md:flex-row md:justify-between md:gap-8 gap-8">
         <!-- Cột 1: CLB -->
         <div class="w-full md:w-2/4">
-          <p class="text-base md:text-lg font-bold mb-3 text-yellow-400 ">
+          <p class="text-base md:text-lg font-bold mb-3 text-yellow-400">
             CLB CHỨNG KHOÁN HỌC VIỆN NGÂN HÀNG - SEC
           </p>
           <ul class="space-y-2 text-sm">
@@ -73,10 +73,34 @@
               MỤC LỤC
             </h3>
             <ul class="space-y-2 text-sm">
-              <li><a href="#about" class="hover:underline">Về chúng tôi</a></li>
-              <li><a href="#contest" class="hover:underline">Về cuộc thi</a></li>
-              <li><a href="#awards" class="hover:underline">Giải thưởng</a></li>
-              <li><a href="#rules" class="hover:underline">Thể lệ</a></li>
+              <li>
+                <a
+                  @click="scrollToAboutUs"
+                  class="hover:underline cursor-pointer"
+                  >Về chúng tôi</a
+                >
+              </li>
+              <li>
+                <a
+                  @click="scrollToAboutContest"
+                  class="hover:underline cursor-pointer"
+                  >Về cuộc thi</a
+                >
+              </li>
+              <li>
+                <a
+                  @click="scrollToActivity"
+                  class="hover:underline cursor-pointer"
+                  >Các hoạt động</a
+                >
+              </li>
+              <li>
+                <a
+                  @click="scrollToTimeline"
+                  class="hover:underline cursor-pointer"
+                  >Thể lệ</a
+                >
+              </li>
             </ul>
           </div>
         </div>
@@ -84,6 +108,133 @@
     </div>
   </footer>
 </template>
+
+<script setup>
+// Scroll functions for navigation - tương tự như Header
+const scrollToAboutUs = () => {
+  // Check if mobile
+  const isMobile = window.innerWidth <= 768;
+
+  if (isMobile) {
+    // Mobile: scroll to vertical AboutUs section
+    const aboutUsSection = document.querySelector(
+      ".mobile-section:first-child"
+    );
+    if (aboutUsSection) {
+      aboutUsSection.scrollIntoView({ behavior: "smooth" });
+    }
+  } else {
+    // Desktop: scroll to AboutUs section directly
+    const horizontalSection = document.querySelector(
+      ".horizontal-scroll-section"
+    );
+    if (horizontalSection) {
+      // Calculate position to show AboutUs (first item)
+      const rect = horizontalSection.getBoundingClientRect();
+      const scrollTop = window.pageYOffset + rect.top;
+
+      window.scrollTo({
+        top: scrollTop,
+        behavior: "smooth",
+      });
+    }
+  }
+};
+
+const scrollToAboutContest = () => {
+  // Check if mobile
+  const isMobile = window.innerWidth <= 768;
+
+  if (isMobile) {
+    // Mobile: scroll to vertical AboutContest section
+    const aboutContestSection = document.querySelector(
+      ".mobile-section:nth-child(2)"
+    );
+    if (aboutContestSection) {
+      aboutContestSection.scrollIntoView({ behavior: "smooth" });
+    }
+  } else {
+    // Desktop: scroll to position that shows AboutContest
+    const horizontalSection = document.querySelector(
+      ".horizontal-scroll-section"
+    );
+    if (horizontalSection) {
+      // Calculate position to show AboutContest (second item)
+      // Need to scroll deeper into the horizontal section to trigger AboutContest
+      const rect = horizontalSection.getBoundingClientRect();
+      const sectionHeight = horizontalSection.offsetHeight;
+      const scrollTop = window.pageYOffset + rect.top + sectionHeight * 0.5;
+
+      window.scrollTo({
+        top: scrollTop,
+        behavior: "smooth",
+      });
+    }
+  }
+};
+
+const scrollToActivity = () => {
+  const activitySection = document.querySelector(
+    ".description-container"
+  ).nextElementSibling;
+  if (activitySection) {
+    activitySection.scrollIntoView({ behavior: "smooth" });
+  }
+};
+
+const scrollToTimeline = () => {
+  // Method 1: Look for all elements and find the actual Timeline component
+  const allElements = document.querySelectorAll("*");
+  for (let element of allElements) {
+    // Check if this element contains Timeline component
+    if (element.tagName && element.__vueParentComponent) {
+      const componentName =
+        element.__vueParentComponent?.type?.name ||
+        element.__vueParentComponent?.type?.__name;
+      if (componentName === "Timeline") {
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+    }
+  }
+
+  // Method 2: Find by DOM structure - Timeline comes after Title with "THỂ LỆ"
+  const titleElement = Array.from(
+    document.querySelectorAll(".title-container")
+  ).find((el) => el.textContent.includes("THỂ LỆ"));
+
+  if (titleElement) {
+    // Get the parent of title, then find next mt-16 element
+    const titleParent =
+      titleElement.closest(".mt-40, .mb-12") || titleElement.parentElement;
+    let nextSibling = titleParent.nextElementSibling;
+
+    if (nextSibling && nextSibling.classList.contains("mt-16")) {
+      nextSibling.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+  }
+
+  // Method 3: Simple fallback - find the second mt-16 element (first is Title, second should be Timeline)
+  const mt16Elements = document.querySelectorAll(".mt-16");
+  if (mt16Elements.length >= 2) {
+    // Skip Title (first mt-16), get Timeline (second mt-16)
+    for (let i = 1; i < mt16Elements.length; i++) {
+      const element = mt16Elements[i];
+      // Check if previous element contains "THỂ LỆ" - then this should be Timeline
+      const prevElement = element.previousElementSibling;
+      if (
+        prevElement &&
+        prevElement.textContent &&
+        prevElement.textContent.includes("THỂ LỆ")
+      ) {
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+    }
+  }
+};
+</script>
 
 <style scoped>
 .footer-register-btn {

@@ -238,12 +238,12 @@ const targetTimestamp = targetDate.getTime();
   font-weight: 700 !important;
   font-size: 1rem !important;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  border: none !important;
+  border: 2px solid transparent !important;
   text-transform: none !important;
   letter-spacing: 0.02em !important;
   min-width: auto !important;
   height: auto !important;
-  box-shadow: 0 8px 32px rgba(251, 191, 36, 0.3) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
   position: relative !important;
   overflow: hidden !important;
 }
@@ -271,7 +271,18 @@ const targetTimestamp = targetDate.getTime();
 .btn-register:hover {
   background: linear-gradient(135deg, #fcd34d, #fbbf24) !important;
   transform: translateY(-3px) scale(1.03) !important;
-  box-shadow: 0 12px 40px rgba(251, 191, 36, 0.4) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+  border: 2px solid #fbbf24 !important;
+  color: #000 !important;
+  text-shadow: 0 0 8px rgba(251, 191, 36, 0.8) !important;
+}
+
+.btn-register:active {
+  background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+  transform: translateY(-1px) scale(1.01) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+  border: 2px solid #f59e0b !important;
+  text-shadow: 0 0 12px rgba(251, 191, 36, 1) !important;
 }
 
 .btn-text {

@@ -7,15 +7,16 @@
     }"
   >
     <!-- Video overlay -->
-    <!-- <video
+    <video
       autoplay
       loop
       muted
       playsinline
-      class="absolute top-0 left-0 w-full h-full object-cover z-0 opacity-30"
+      class="fixed top-0 left-0 w-screen h-screen object-cover z-0 opacity-20"
+      style="object-position: center center"
     >
       <source src="@/assets/flare.mp4" type="video/mp4" />
-    </video> -->
+    </video>
 
     <!-- Nội dung -->
     <div class="relative z-10">

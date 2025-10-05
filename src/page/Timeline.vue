@@ -33,19 +33,21 @@
 
           <!-- Các vòng - Infinite Loop -->
           <div
-            v-for="(round, index) in infiniteRounds"
+            v-for="(round, index) in rounds"
             :key="`round-${index}`"
-            class="relative flex items-center cursor-pointer mb-4 lg:mb-8 transition-all duration-300 hover:scale-105"
+            class="timeline-round-item relative flex items-center cursor-pointer mb-4 lg:mb-8 transition-all duration-300 hover:scale-105"
             :class="{
-              'timeline-item-active': getRealIndex(index) === selectedRound,
+              'timeline-item-active':
+                index % originalRounds.length ===
+                selectedRound % originalRounds.length,
             }"
-            @click="selectRound(getRealIndex(index), index)"
+            @click="selectRound(index)"
           >
             <!-- Text tên vòng (bên trái) -->
             <div
               class="transition-all duration-500 relative"
               :class="
-                getRealIndex(index) === selectedRound
+                index === selectedRound
                   ? 'mr-8 lg:mr-16 -translate-x-8 lg:-translate-x-32'
                   : 'mr-8 lg:mr-16'
               "
@@ -54,7 +56,7 @@
               <div
                 class="w-[180px] lg:w-[220px] h-[80px] lg:h-[100px] flex flex-col justify-center transition-all duration-500"
                 :class="[
-                  getRealIndex(index) === selectedRound
+                  index === selectedRound
                     ? 'px-3 py-2 text-center'
                     : 'items-start justify-center text-left',
                 ]"
@@ -62,12 +64,12 @@
                 <div
                   class="transition-all duration-500 transform"
                   :class="
-                    getRealIndex(index) === selectedRound
+                    index === selectedRound
                       ? 'text-[#dffbff] text-2xl lg:text-3xl font-bold leading-tight mb-1 scale-110'
                       : 'text-[#dffbff] font-bold text-lg lg:text-2xl scale-100'
                   "
                   :style="
-                    getRealIndex(index) === selectedRound
+                    index === selectedRound
                       ? 'text-shadow: 0 0 10px #dffbff, 0 0 20px #dffbff, 0 0 30px #dffbff;'
                       : ''
                   "
@@ -76,7 +78,7 @@
                 </div>
 
                 <div
-                  v-if="getRealIndex(index) === selectedRound"
+                  v-if="index === selectedRound"
                   class="text-white text-xs lg:text-sm font-medium leading-tight transition-all duration-500 delay-300 mt-1 whitespace-pre-line"
                 >
                   {{ round.description }}
@@ -92,7 +94,7 @@
                 src="@/assets/rock.png"
                 class="w-8 h-8 lg:w-12 lg:h-12 transition-all duration-500 transform"
                 :class="
-                  getRealIndex(index) === selectedRound
+                  index === selectedRound
                     ? 'brightness-125 drop-shadow-[0_0_15px_gold] scale-110'
                     : 'brightness-50 hover:brightness-75 hover:scale-105'
                 "
@@ -132,7 +134,7 @@
         ></div>
         <Transition name="detail-content" mode="out-in">
           <div
-            :key="selectedRound"
+            :key="selectedRound % originalRounds.length"
             class="relative h-full flex flex-col z-10 w-full items-center"
           >
             <!-- Title with enhanced styling -->
@@ -140,7 +142,7 @@
               <h2
                 class="text-[#dffbff] text-lg lg:text-2xl font-bold mb-2 text-left transition-all duration-300 ease-in-out transform bg-gradient-to-r from-[#dffbff] to-[#87ceeb] bg-clip-text text-transparent drop-shadow-sm"
               >
-                {{ rounds[selectedRound].timeframe.toUpperCase() }}
+                {{ currentRoundData.timeframe.toUpperCase() }}
               </h2>
               <div
                 class="w-16 h-0.5 bg-gradient-to-r from-[#dffbff] to-transparent rounded-full"
@@ -154,7 +156,7 @@
               <div class="space-y-3">
                 <pre
                   class="whitespace-pre-wrap font-sans leading-loose text-white/95 selection:bg-[#dffbff]/20"
-                  >{{ rounds[selectedRound].detail }}</pre
+                  >{{ currentRoundData.detail }}</pre
                 >
               </div>
             </div>
@@ -183,7 +185,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount, nextTick, computed } from "vue";
+import { ref, computed, nextTick } from "vue";
 import backgroundImage from "@/assets/back.png";
 import TimelineMobile from "@/components/TimelineMobile.vue";
 
@@ -196,7 +198,7 @@ const isMobile = computed(() => {
   return false;
 });
 
-const rounds = ref([
+const originalRounds = [
   {
     title: "VÒNG 1",
     description: "TEST ONLINE",
@@ -246,183 +248,53 @@ Hình thức thi: Cá nhân.`,
     timeframe: "GALA NIGHT (THỜI GIAN: 16/01/2026)",
     detail: `Top 5 thí sinh xuất sắc nhất sẽ trải qua Vòng Chung kết được sắn khấu hóa để tìm ra Quán quân của Cuộc thi Bản lĩnh Nhà đầu tư 2025`,
   },
-]);
+];
 
-const selectedRound = ref(0); // mặc định Vòng 1
-const timeline = ref(null);
-// Set initial position để timeline hiển thị ngay lập tức với VÒNG 1 visible
-const translateY = ref(-5500); // Position để timeline hiển thị ngay với VÒNG 1
-
-// Tạo infinite rounds bằng cách duplicate rounds nhiều lần
-const infiniteRounds = ref([]);
-const REPEAT_COUNT = 20; // Tăng số lần lặp lại
-const MIDDLE_START = 10; // Vị trí giữa để bắt đầu
-const isScrolling = ref(false);
-
-// Khởi tạo ngay lập tức để đảm bảo timeline có content
-(() => {
-  for (let i = 0; i < REPEAT_COUNT; i++) {
-    infiniteRounds.value.push(...rounds.value);
+// Tạo timeline lặp vô tận bằng cách nhân 100 lần
+const rounds = computed(() => {
+  // Tạo 100 bản lặp để có timeline siêu dài
+  const result = [];
+  for (let i = 0; i < 100; i++) {
+    result.push(...originalRounds);
   }
-})();
-
-// Function để lấy real index từ infinite index
-const getRealIndex = (infiniteIndex) => {
-  return infiniteIndex % rounds.value.length;
-};
-
-// Function để check và reset position khi cần thiết
-const checkAndResetPosition = () => {
-  if (isScrolling.value) return;
-
-  const currentTranslate = translateY.value;
-  const itemHeight = 120; // Ước tính height của mỗi timeline item (100px + margin)
-  const totalHeight = infiniteRounds.value.length * itemHeight;
-  const viewportCenterY = window.innerHeight / 2;
-  const centerPosition =
-    viewportCenterY - MIDDLE_START * rounds.value.length * itemHeight + 300;
-
-  // Nếu scroll quá xa khỏi center, reset về center với same visual position
-  const threshold = totalHeight * 0.3; // 30% của total height
-
-  if (Math.abs(currentTranslate - centerPosition) > threshold) {
-    // Tính toán position tương ứng ở center
-    const currentRealPosition =
-      currentTranslate % (rounds.value.length * itemHeight);
-    const newCenterPosition = centerPosition + currentRealPosition;
-
-    // Reset without animation
-    const timeline = timeline.value;
-    if (timeline) {
-      timeline.style.transition = "none";
-      translateY.value = newCenterPosition;
-
-      // Restore animation after a short delay
-      setTimeout(() => {
-        timeline.style.transition =
-          "transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
-      }, 50);
-    }
-  }
-};
-
-const selectRound = async (realIndex, infiniteIndex = null) => {
-  selectedRound.value = realIndex;
-  isScrolling.value = true;
-
-  await nextTick();
-
-  // Nếu không có infiniteIndex, tìm element gần nhất với center
-  if (infiniteIndex === null) {
-    infiniteIndex = findClosestRoundIndex(realIndex);
-  }
-
-  // Implement smooth scroll to center logic từ test.html
-  const timelineEl = timeline.value?.children[infiniteIndex + 1]; // +1 vì có line element đầu tiên
-
-  if (timelineEl) {
-    // Tương tự scrollIntoView({ behavior: 'smooth', block: 'center' })
-    const viewportCenterY = window.innerHeight / 2;
-
-    // Lấy vị trí hiện tại của timeline item
-    const elementRect = timelineEl.getBoundingClientRect();
-    const elementCenterY = elementRect.top + elementRect.height / 2;
-
-    // Tính khoảng cách để đưa element vào center của viewport
-    const scrollDistance = elementCenterY - viewportCenterY;
-
-    // Smooth animation transition (tương tự behavior: 'smooth')
-    translateY.value -= scrollDistance;
-
-    // Reset scrolling flag after animation
-    setTimeout(() => {
-      isScrolling.value = false;
-      checkAndResetPosition();
-    }, 700);
-  }
-};
-
-// Tìm round gần nhất với center của viewport
-const findClosestRoundIndex = (realIndex) => {
-  const viewportCenterY = window.innerHeight / 2;
-  let closestIndex = 0;
-  let minDistance = Infinity;
-
-  for (let i = 0; i < infiniteRounds.value.length; i++) {
-    if (getRealIndex(i) === realIndex) {
-      const timelineEl = timeline.value?.children[i + 1];
-      if (timelineEl) {
-        const elementRect = timelineEl.getBoundingClientRect();
-        const elementCenterY = elementRect.top + elementRect.height / 2;
-        const distance = Math.abs(elementCenterY - viewportCenterY);
-
-        if (distance < minDistance) {
-          minDistance = distance;
-          closestIndex = i;
-        }
-      }
-    }
-  }
-
-  return closestIndex;
-};
-
-// Thêm wheel scroll support
-const handleWheel = (event) => {
-  event.preventDefault();
-  const delta = event.deltaY;
-  const scrollAmount = delta > 0 ? 80 : -80; // Scroll step
-
-  translateY.value -= scrollAmount;
-
-  // Debounced check for reset position
-  setTimeout(() => {
-    if (!isScrolling.value) {
-      checkAndResetPosition();
-    }
-  }, 200);
-};
-
-onMounted(async () => {
-  // Chỉ chạy logic desktop khi không phải mobile
-  if (!isMobile.value) {
-    // Đợi DOM render
-    await nextTick();
-
-    // Add event listeners
-    const timelineContainer = document.querySelector(
-      ".timeline-scroll-container"
-    );
-    if (timelineContainer) {
-      timelineContainer.addEventListener("wheel", handleWheel, {
-        passive: false,
-      });
-    }
-
-    // Tự động scroll đến VÒNG 1 ở giữa infinite list sau một delay ngắn để tạo hiệu ứng
-    setTimeout(() => {
-      const itemHeight = 120;
-      const middleStartIndex =
-        MIDDLE_START * rounds.value.length + selectedRound.value;
-      const viewportCenterY = window.innerHeight / 2;
-
-      // Smooth scroll đến center position - VÒNG 1 ở giữa infinite list
-      // Giảm translateY để VÒNG 1 không bị cụt ở dưới
-      translateY.value = viewportCenterY - middleStartIndex * itemHeight + 300;
-    }, 300);
-  }
+  return result;
 });
 
-onBeforeUnmount(() => {
-  // Chỉ cleanup event listeners cho desktop
-  if (!isMobile.value) {
-    const timelineContainer = document.querySelector(
-      ".timeline-scroll-container"
+const selectedRound = ref(250); // Bắt đầu từ giữa 100 bản lặp (50 * 5 = 250) để có thể cuộn cả 2 hướng
+const timeline = ref(null);
+const translateY = ref(0);
+
+// Select round and center it - với logic lặp vô tận
+const selectRound = async (index) => {
+  selectedRound.value = index;
+
+  // Center the selected round
+  if (!isMobile.value && timeline.value) {
+    await nextTick();
+
+    const roundElements = timeline.value.querySelectorAll(
+      ".timeline-round-item"
     );
-    if (timelineContainer) {
-      timelineContainer.removeEventListener("wheel", handleWheel);
+    const selectedElement = roundElements[index];
+
+    if (selectedElement) {
+      const viewportCenterY = window.innerHeight / 2;
+      const elementRect = selectedElement.getBoundingClientRect();
+      const elementCenterY = elementRect.top + elementRect.height / 2;
+
+      // Calculate distance to move element to center
+      const scrollDistance = elementCenterY - viewportCenterY;
+
+      // Smooth scroll to center
+      translateY.value -= scrollDistance;
     }
   }
+};
+
+// Computed để lấy round data hiện tại theo logic lặp
+const currentRoundData = computed(() => {
+  const realIndex = selectedRound.value % originalRounds.length;
+  return originalRounds[realIndex];
 });
 </script>
 

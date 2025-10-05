@@ -102,7 +102,8 @@ import Chip from "@/components/Chip.vue";
   font-weight: bold;
   text-align: center;
   margin-bottom: 60px;
-  text-shadow: 0 0 5px #dffbff, 0 0 10px #dffbff;
+  text-shadow: 0 0 3px rgba(223, 251, 255, 0.7),
+    0 0 6px rgba(223, 251, 255, 0.5), 0 0 9px rgba(223, 251, 255, 0.3);
   letter-spacing: 2px;
 }
 
@@ -120,7 +121,8 @@ import Chip from "@/components/Chip.vue";
   font-weight: 600;
   text-align: center;
   margin-bottom: 25px;
-  text-shadow: 0 0 4px #dffbff, 0 0 8px #dffbff;
+  text-shadow: 0 0 3px rgba(223, 251, 255, 0.9),
+    0 0 6px rgba(223, 251, 255, 0.6), 0 0 9px rgba(223, 251, 255, 0.4);
   letter-spacing: 1px;
 }
 
@@ -286,10 +288,13 @@ import Chip from "@/components/Chip.vue";
 
 @keyframes titleGlow {
   from {
-    text-shadow: 0 0 4px #dffbff, 0 0 8px #dffbff;
+    text-shadow: 0 0 3px rgba(223, 251, 255, 0.7),
+      0 0 6px rgba(223, 251, 255, 0.5), 0 0 9px rgba(223, 251, 255, 0.3);
   }
   to {
-    text-shadow: 0 0 6px #dffbff, 0 0 12px #dffbff, 0 0 18px #dffbff;
+    text-shadow: 0 0 5px rgba(223, 251, 255, 0.8),
+      0 0 10px rgba(223, 251, 255, 0.6), 0 0 15px rgba(223, 251, 255, 0.4),
+      0 0 20px rgba(223, 251, 255, 0.2);
   }
 }
 
