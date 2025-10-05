@@ -72,7 +72,7 @@
       <!-- Detail Box ở dưới -->
       <div class="flex items-start justify-center px-4 pt-2 pb-4">
         <div
-          class="relative bg-gradient-to-br from-[#214159] via-[#2d5a7b] to-[#1a3349] bg-opacity-95 backdrop-blur-sm w-full max-w-[380px] h-[420px] p-4 rounded-xl shadow-2xl border border-[#3a6b8c] border-opacity-30 transition-all duration-500 ease-in-out hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)] overflow-hidden"
+          class="swipeable-detail-box relative bg-gradient-to-br from-[#214159] via-[#2d5a7b] to-[#1a3349] bg-opacity-95 backdrop-blur-sm w-full max-w-[380px] h-[450px] p-4 rounded-xl shadow-2xl border border-[#3a6b8c] border-opacity-30 transition-all duration-300 ease-in-out hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)] overflow-hidden cursor-grab active:cursor-grabbing"
         >
           <!-- Background pattern overlay -->
           <div class="absolute inset-0 opacity-10">
@@ -95,10 +95,60 @@
             class="absolute inset-[1px] rounded-xl bg-gradient-to-br from-[#214159] via-[#2d5a7b] to-[#1a3349]"
           ></div>
 
+          <!-- Swipe indicators -->
+          <div class="absolute top-4 left-4 z-20 opacity-60">
+            <div
+              v-if="selectedRound > 0"
+              class="flex items-center text-white/60 text-xs"
+            >
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </div>
+          </div>
+
+          <div class="absolute top-4 right-4 z-20 opacity-60">
+            <div
+              v-if="selectedRound < rounds.length - 1"
+              class="flex items-center text-white/60 text-xs"
+            >
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Dot indicators -->
+          <div
+            class="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20"
+          >
+            <div class="flex space-x-2">
+              <div
+                v-for="(round, index) in rounds"
+                :key="`dot-${index}`"
+                class="dot-indicator w-2 h-2 rounded-full transition-all duration-300"
+                :class="
+                  index === selectedRound
+                    ? 'bg-[#dffbff] scale-125'
+                    : 'bg-white/30'
+                "
+                @click="selectRound(index)"
+              ></div>
+            </div>
+          </div>
+
           <Transition name="detail-content" mode="out-in">
             <div
               :key="selectedRound"
-              class="relative h-full flex flex-col z-10 w-full items-center"
+              class="relative h-full flex flex-col z-10 w-full items-center pt-8 pb-12"
             >
               <!-- Title with enhanced styling -->
               <div class="mb-3 w-full max-w-[320px]">
@@ -114,7 +164,7 @@
 
               <!-- Content with enhanced styling -->
               <div
-                class="text-white/90 text-xs leading-relaxed text-left transition-all duration-300 ease-in-out transform flex-1 overflow-y-auto w-full max-w-[320px]"
+                class="text-white/90 text-xs leading-relaxed text-left transition-all duration-300 ease-in-out transform flex-1 overflow-y-auto w-full max-w-[320px] no-scrollbar"
               >
                 <div class="space-y-2 pr-2">
                   <pre
@@ -149,7 +199,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import backgroundImage from "@/assets/back.png";
 
 const rounds = ref([
@@ -209,6 +259,113 @@ const selectedRound = ref(0); // mặc định Vòng 1
 const selectRound = (index) => {
   selectedRound.value = index;
 };
+
+// Touch/Swipe functionality
+let touchStartX = 0;
+let touchStartY = 0;
+let detailBoxElement = null;
+
+const handleTouchStart = (e) => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+};
+
+const handleTouchEnd = (e) => {
+  if (!touchStartX || !touchStartY) return;
+
+  const touchEndX = e.changedTouches[0].clientX;
+  const touchEndY = e.changedTouches[0].clientY;
+
+  const diffX = touchStartX - touchEndX;
+  const diffY = touchStartY - touchEndY;
+
+  // Check if horizontal swipe is more significant than vertical
+  if (Math.abs(diffX) > Math.abs(diffY)) {
+    // Minimum swipe distance threshold
+    if (Math.abs(diffX) > 50) {
+      if (diffX > 0) {
+        // Swipe left - next round
+        if (selectedRound.value < rounds.value.length - 1) {
+          selectRound(selectedRound.value + 1);
+        }
+      } else {
+        // Swipe right - previous round
+        if (selectedRound.value > 0) {
+          selectRound(selectedRound.value - 1);
+        }
+      }
+    }
+  }
+
+  // Reset touch positions
+  touchStartX = 0;
+  touchStartY = 0;
+};
+
+const handleMouseDown = (e) => {
+  touchStartX = e.clientX;
+  touchStartY = e.clientY;
+};
+
+const handleMouseUp = (e) => {
+  if (!touchStartX || !touchStartY) return;
+
+  const mouseEndX = e.clientX;
+  const mouseEndY = e.clientY;
+
+  const diffX = touchStartX - mouseEndX;
+  const diffY = touchStartY - mouseEndY;
+
+  // Check if horizontal swipe is more significant than vertical
+  if (Math.abs(diffX) > Math.abs(diffY)) {
+    // Minimum swipe distance threshold
+    if (Math.abs(diffX) > 50) {
+      if (diffX > 0) {
+        // Swipe left - next round
+        if (selectedRound.value < rounds.value.length - 1) {
+          selectRound(selectedRound.value + 1);
+        }
+      } else {
+        // Swipe right - previous round
+        if (selectedRound.value > 0) {
+          selectRound(selectedRound.value - 1);
+        }
+      }
+    }
+  }
+
+  // Reset mouse positions
+  touchStartX = 0;
+  touchStartY = 0;
+};
+
+onMounted(() => {
+  // Find detail box element
+  detailBoxElement = document.querySelector(".swipeable-detail-box");
+
+  if (detailBoxElement) {
+    // Add touch event listeners
+    detailBoxElement.addEventListener("touchstart", handleTouchStart, {
+      passive: true,
+    });
+    detailBoxElement.addEventListener("touchend", handleTouchEnd, {
+      passive: true,
+    });
+
+    // Add mouse event listeners for desktop testing
+    detailBoxElement.addEventListener("mousedown", handleMouseDown);
+    detailBoxElement.addEventListener("mouseup", handleMouseUp);
+  }
+});
+
+onUnmounted(() => {
+  if (detailBoxElement) {
+    detailBoxElement.removeEventListener("touchstart", handleTouchStart);
+    detailBoxElement.removeEventListener("touchend", handleTouchEnd);
+    detailBoxElement.removeEventListener("mousedown", handleMouseDown);
+    detailBoxElement.removeEventListener("mouseup", handleMouseUp);
+  }
+});
 </script>
 
 <style scoped>
@@ -259,22 +416,56 @@ const selectRound = (index) => {
   transform: translateY(-10px) scale(0.98);
 }
 
-/* Scrollbar styling */
-.overflow-y-auto::-webkit-scrollbar {
-  width: 4px;
+/* Hide scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
-.overflow-y-auto::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
-.overflow-y-auto::-webkit-scrollbar-thumb {
-  background: rgba(223, 251, 255, 0.3);
-  border-radius: 2px;
+/* Swipe functionality styles */
+.swipeable-detail-box {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  touch-action: pan-y; /* Allow vertical scrolling but capture horizontal gestures */
 }
 
-.overflow-y-auto::-webkit-scrollbar-thumb:hover {
-  background: rgba(223, 251, 255, 0.5);
+.swipeable-detail-box:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease;
+}
+
+/* Swipe hint animation */
+@keyframes swipeHint {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(5px);
+  }
+}
+
+.swipeable-detail-box:hover .absolute.top-4.right-4 svg,
+.swipeable-detail-box:hover .absolute.top-4.left-4 svg {
+  animation: swipeHint 2s ease-in-out infinite;
+}
+
+/* Enhanced dot indicators */
+.dot-indicator {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.dot-indicator:hover {
+  transform: scale(1.3);
+  opacity: 0.8;
 }
 </style>

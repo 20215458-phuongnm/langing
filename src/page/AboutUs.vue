@@ -95,13 +95,13 @@ onUnmounted(() => {
 /* Animation cho elements */
 .animate-element {
   opacity: 0;
-  transform: translateY(60px) scale(0.9);
-  transition: all 4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(40px) scale(0.95);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Animation delay cho element thứ hai */
 .animate-delay {
-  transition-delay: 0.5s;
+  transition-delay: 0.2s;
 }
 
 /* Trạng thái khi visible */
@@ -112,17 +112,17 @@ onUnmounted(() => {
 
 /* Hiệu ứng bounce nhẹ khi element xuất hiện hoàn toàn */
 .animate-visible {
-  animation: bounceIn 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: bounceIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @keyframes bounceIn {
   0% {
     opacity: 0;
-    transform: translateY(60px) scale(0.9);
+    transform: translateY(40px) scale(0.95);
   }
   60% {
-    opacity: 0.8;
-    transform: translateY(-10px) scale(1.02);
+    opacity: 0.9;
+    transform: translateY(-5px) scale(1.01);
   }
   100% {
     opacity: 1;
