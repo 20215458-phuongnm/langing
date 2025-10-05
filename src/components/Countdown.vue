@@ -170,12 +170,10 @@ const targetTimestamp = targetDate.getTime();
 }
 
 .btn-register:hover {
-  background: linear-gradient(135deg, #fcd34d, #fbbf24) !important;
-  transform: translateY(-3px) scale(1.03) !important;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
-  border: 2px solid #fbbf24 !important;
-  color: #000 !important;
-  text-shadow: 0 0 8px rgba(251, 191, 36, 0.8) !important;
+  background-color: #fcd34d !important;
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow: 0 8px 25px rgba(251, 191, 36, 0.4) !important;
+  filter: brightness(1.1) !important;
 }
 
 .btn-register:active {

@@ -247,10 +247,15 @@ const scrollToTimeline = () => {
   box-shadow: none !important;
   min-width: auto !important;
   height: auto !important;
-  transition: background-color 0.2s ease-in-out;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none !important;
+  letter-spacing: normal !important;
 }
 
 .footer-register-btn:hover {
   background-color: #fcd34d !important;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(251, 191, 36, 0.4) !important;
+  filter: brightness(1.1);
 }
 </style>
