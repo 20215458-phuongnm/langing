@@ -18,6 +18,8 @@
         <!-- Bottom: Action -->
         <div class="action-section">
           <v-btn
+            href="https://sec-contest.vercel.app/"
+            target="_blank"
             class="btn-register"
             color="#fbbf24"
             variant="flat"

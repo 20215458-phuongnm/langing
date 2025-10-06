@@ -57,21 +57,21 @@ const activities = {
   training: {
     title: "TRAINING",
     description:
-      "Cuộc thi Bản lĩnh Nhà đầu tư mới các điều kiện về giai đoạn nghiệm trong lĩnh vực Tài chính - Chứng khoán chia sẻ bài học của bản, mang đến đặc quyền gia vị cho thí sinh.",
+      "Cuộc thi Bản lĩnh Nhà đầu tư mời các diễn giả giàu kinh nghiệm trong lĩnh vực Tài chính - Chứng khoán chia sẻ bài học bổ ích, mang đến đặc quyền giá trị cho thí sinh.",
     subtitle: "TRAINING THÍ SINH TOP 50 & TOP 16",
     image: S1,
   },
   presentation: {
     title: "PRESENTATION",
     description:
-      "TOP 16 thể hiện bản lĩnh trước Hội đồng giám khảo bằng phần thuyết trình về một cơ hội đầu tư tại Ủy ban Chứng khoán Nhà nước - nơi mọi ý tưởng có thể trở thành đầu tư năng.",
+      "TOP 16 thể hiện bản lĩnh trước Hội đồng giám khảo bằng phần thuyết trình về một cơ hội đầu tư tại Ủy ban Chứng khoán Nhà nước – nơi mỗi ý tưởng có thể trở thành dấu ấn riêng.",
     subtitle: "THUYẾT TRÌNH TẠI UBCKNN",
     image: S2,
   },
   gala: {
     title: "GALA NIGHT",
     description:
-      "Tại đêm Gala Chung kết, khán giả sẽ chứng kiến TOP 5 thí sinh xuất sắc tranh tài qua các thử thách kịch tính, những màn trình diễn đẳng cấp âm vị Quán Quân.",
+      "Tại đêm Gala Chung kết, khán giả sẽ chứng kiến TOP 5 thí sinh xuất sắc tranh tài qua các thử thách kịch tính, những màn đối đầu căng thẳng để tìm ra ngôi vị Quán Quân.",
     subtitle: "TRANH TÀI - THỬ THÁCH",
     image: S3,
   },

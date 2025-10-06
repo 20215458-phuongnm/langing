@@ -41,7 +41,12 @@
             >
           </li>
           <li>
-            <v-btn href="#register" class="btn-register" variant="flat">
+            <v-btn
+              href="https://sec-contest.vercel.app/"
+              target="_blank"
+              class="btn-register"
+              variant="flat"
+            >
               Đăng ký ngay
             </v-btn>
           </li>
@@ -118,7 +123,8 @@
         </li>
         <li class="pt-2">
           <v-btn
-            href="#register"
+            href="https://sec-contest.vercel.app/"
+            target="_blank"
             class="btn-register inline-block"
             @click="closeMobileMenu"
             variant="flat"

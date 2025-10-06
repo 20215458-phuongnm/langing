@@ -30,7 +30,7 @@
         <!-- Text content -->
         <div
           ref="textElement"
-          class="md:w-1/2 mr-5 md:mr-13 text-white text-base md:text-lg leading-relaxed flex items-center text-center md:text-left animate-element animate-delay"
+          class="md:w-1/2 mr-20 md:mr-13 text-white text-base md:text-lg leading-relaxed flex items-center text-center md:text-left animate-element animate-delay"
           :class="{ 'animate-visible': isVisible }"
         >
           <div>

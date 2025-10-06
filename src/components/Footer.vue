@@ -18,7 +18,13 @@
         </div>
 
         <!-- Nút đăng ký ngay -->
-        <v-btn class="footer-register-btn mb-3 sm:mt-0"> Đăng ký ngay </v-btn>
+        <v-btn
+          href="https://sec-contest.vercel.app/"
+          target="_blank"
+          class="footer-register-btn mb-3 sm:mt-0"
+        >
+          Đăng ký ngay
+        </v-btn>
       </div>
 
       <!-- Nội dung chính -->
@@ -51,16 +57,16 @@
             CUỘC THI BẢN LĨNH NHÀ ĐẦU TƯ
           </h3>
           <ul class="space-y-2 text-sm">
-            <li>Email: notify.blnhi@gmail.com</li>
+            <li>Email: notify.blndt@gmail.com</li>
             <li>Hotline: 0968 763 960 (Ms. Phương Anh)</li>
             <li>
               Fanpage:
               <a
-                href="https://facebook.com/banlinhnhadatu.sec"
+                href="https://facebook.com/banlinhnhadautu.sec"
                 target="_blank"
                 class="underline hover:text-yellow-300"
               >
-                facebook.com/banlinhnhadatu.sec
+                facebook.com/banlinhnhadautu.sec
               </a>
             </li>
           </ul>

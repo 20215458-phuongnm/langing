@@ -18,7 +18,7 @@
         <!-- Text content -->
         <div
           ref="textElement"
-          class="md:w-1/2 md:ml-13 text-white text-base md:text-lg leading-relaxed flex items-center text-center md:text-left animate-element"
+          class="md:w-1/2 md:ml-16 text-white text-base md:text-lg leading-relaxed flex items-center text-center md:text-left animate-element"
           :class="{ 'animate-visible': isVisible }"
         >
           <div>
