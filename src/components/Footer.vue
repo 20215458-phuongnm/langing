@@ -35,7 +35,7 @@
             CLB CHỨNG KHOÁN HỌC VIỆN NGÂN HÀNG - SEC
           </p>
           <ul class="space-y-2 text-sm">
-            <li>Địa chỉ: 12 Chùa Bộc, Đống Đa, Hà Nội</li>
+            <li>Địa chỉ: 12 Chùa Bộc, Phường Kim Liên, Hà Nội</li>
             <li>
               Fanpage:
               <a

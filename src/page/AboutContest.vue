@@ -30,16 +30,15 @@
         <!-- Text content -->
         <div
           ref="textElement"
-          class="md:w-1/2 mr-20 md:mr-13 text-white text-base md:text-lg leading-relaxed flex items-center text-center md:text-left animate-element animate-delay"
+          class="md:w-1/2 md:mr-20 text-white text-base md:text-lg leading-relaxed flex items-center text-center md:text-left animate-element animate-delay"
           :class="{ 'animate-visible': isVisible }"
         >
           <div>
             Bản lĩnh Nhà đầu tư - cuộc thi đầu tiên và duy nhất tại Học viện
             Ngân hàng và là một trong những cuộc thi lớn nhất về lĩnh vực Kinh
-            tế - Tài chính - Chứng khoán dành cho sinh viên toàn quốc, được tổ
-            chức bởi CLB Chứng khoán Học viện Ngân hàng - SEC. Cuộc thi tự hào
-            về hành trình hơn một thập kỷ xây dựng, phát triển, đánh thức giá
-            trị cốt lõi trong mỗi bạn sinh viên, mang đến những giá trị toàn
+            tế - Tài chính - Chứng khoán dành cho sinh viên toàn quốc. Cuộc thi
+            tự hào về hành trình hơn một thập kỷ xây dựng, phát triển, đánh thức
+            giá trị cốt lõi trong mỗi bạn sinh viên, mang đến những giá trị toàn
             diện cho các bạn trẻ và doanh nghiệp. Trở lại với dấu mốc 14 năm,
             Bản lĩnh Nhà đầu tư 2025 đem đến những trải nghiệm chuyên sâu và
             thực tế, tiếp nối thành công của các mùa trước và hứa hẹn sẽ bùng nổ

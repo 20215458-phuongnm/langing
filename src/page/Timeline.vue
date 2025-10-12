@@ -202,7 +202,7 @@ const originalRounds = [
   {
     title: "VÒNG 1",
     description: "TEST ONLINE",
-    timeframe: "TEST ONLINE (THỜI GIAN: 10/10/2025 - 24/10/2025)",
+    timeframe: "TEST ONLINE (THỜI GIAN: 17/10/2025 - 30/10/2025)",
     detail: `Thí sinh sẽ làm bài thi trắc nghiệm trực tuyến trên Website của Ban Tổ Chức.
 Bài thi gồm 20 câu trắc nghiệm về các lĩnh vực Kinh tế, Tài chính, Chứng khoán... Ở mỗi câu hỏi, các thí sinh chỉ được lựa chọn 01 đáp án duy nhất.
 
@@ -215,7 +215,7 @@ Top 300 thí sinh có điểm số cao nhất sẽ bước tiếp vào Vòng 2 -
   {
     title: "VÒNG 2",
     description: "TEST SƠ LOẠI",
-    timeframe: "TEST SƠ LOẠI (THỜI GIAN: 26/10/2025)",
+    timeframe: "TEST SƠ LOẠI (THỜI GIAN: 2/11/2025)",
     detail: `Thí sinh sẽ trải qua 01 bài thi trên giấy trực tiếp gồm 02 phần thi với hình thức thi Trắc nghiệm và Tự luận.
 
 Tổng điểm bài thi: 100 điểm
@@ -227,8 +227,8 @@ Top 50 thí sinh có điểm số cao nhất sẽ bước tiếp vào Vòng 3 - 
   {
     title: "VÒNG 3",
     description: "THỬ THÁCH CHUYÊN SÂU",
-    timeframe: "THỬ THÁCH CHUYÊN SÂU (THỜI GIAN: 29/10/2025 - 16/11/2025)",
-    detail: `THỬ THÁCH THỊ TRƯỜNG (29/10/2025 - 14/10/2025)
+    timeframe: "THỬ THÁCH CHUYÊN SÂU (THỜI GIAN: 5/11/2025 - 16/11/2025)",
+    detail: `THỬ THÁCH THỊ TRƯỜNG (5/11/2025 - 14/11/2025)
 Mỗi thí sinh được cấp Nhóm giao dịch giả lập từng Stock123 của CTCP Chứng khoán Pinetree, thực hiện đặt lệnh trực tuyến quy chế do Ban tổ chức công bố. Sau khi kết thúc, thí sinh có kết quả giao dịch tốt nhất sẽ nhận quà tặng và giấy chứng nhận.
 
 THỬ THÁCH NHÓM (16/11/2025)

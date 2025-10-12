@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="banner-text">
-      <p>Cuộc thi về Kinh tế - Tài chính - Chứng khoán do sinh viên tổ chức</p>
+      <p>Cuộc thi về Kinh tế - Tài chính - Chứng khoán</p>
     </div>
   </div>
 </template>

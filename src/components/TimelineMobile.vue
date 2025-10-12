@@ -173,23 +173,6 @@
                   >
                 </div>
               </div>
-
-              <!-- Decorative bottom element -->
-              <div
-                class="mt-2 flex justify-end flex-shrink-0 w-full max-w-[320px]"
-              >
-                <div class="flex space-x-1">
-                  <div
-                    class="w-1.5 h-1.5 bg-[#dffbff]/40 rounded-full animate-pulse"
-                  ></div>
-                  <div
-                    class="w-1.5 h-1.5 bg-[#dffbff]/60 rounded-full animate-pulse delay-200"
-                  ></div>
-                  <div
-                    class="w-1.5 h-1.5 bg-[#dffbff]/80 rounded-full animate-pulse delay-500"
-                  ></div>
-                </div>
-              </div>
             </div>
           </Transition>
         </div>
