@@ -19,7 +19,7 @@
 
         <!-- Nút đăng ký ngay -->
         <v-btn
-          href="https://sec-contest.vercel.app/"
+          href="https://www.banlinhnhadautu.com/"
           target="_blank"
           class="footer-register-btn mb-3 sm:mt-0"
         >
