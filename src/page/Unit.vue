@@ -126,10 +126,10 @@
 import Chip from "@/components/Chip.vue";
 import bav from "@/assets/DVTC/BAV.png";
 import bavtc from "@/assets/DVTC/BAVTC.png";
-import huyhieu from "@/assets/dvth/Huy_Hiệu_Đoàn.png";
-import hoisinhvien from "@/assets/dvth/Logo-Hoi-Sinh-Vien-Viet-Nam.webp";
-import notback from "@/assets/dvth/LOGOnotback (1).png";
-import btcmssc from "@/assets/btcm/Logo_SSC (1).svg";
+import huyhieu from "@/assets/DVTH/Huy_Hiệu_Đoàn.png";
+import hoisinhvien from "@/assets/DVTH/Logo-Hoi-Sinh-Vien-Viet-Nam.webp";
+import notback from "@/assets/DVTH/LOGOnotback (1).png";
+import btcmssc from "@/assets/BTCM/Logo_SSC (1).svg";
 import nttkcshs from "@/assets/NTTKC/SHS LOGO (1).webp";
 import nttvlogo from "@/assets/NTTV/Logo_New_SD_tren_nen_sang.png";
 import nttbblack from "@/assets/NTTB/black-logo.png";
