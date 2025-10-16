@@ -3,54 +3,159 @@
     <!-- Content -->
     <div class="content-container">
       <!-- Main title -->
+
       <h1 class="main-title">ĐƠN VỊ ĐỒNG HÀNH</h1>
 
       <!-- Sponsor sections -->
       <div class="sponsor-section">
         <h2 class="section-title">ĐƠN VỊ TỔ CHỨC</h2>
         <div class="chips-row">
-          <Chip logo="@/assets/logo1.png" alt-text="Sponsor 1" />
-          <Chip logo="@/assets/logo2.png" alt-text="Sponsor 2" />
-          <Chip logo="@/assets/logo3.png" alt-text="Sponsor 3" />
-          <Chip logo="@/assets/logo4.png" alt-text="Sponsor 4" />
-          <Chip logo="@/assets/logo5.png" alt-text="Sponsor 5" />
+          <Chip :logo="bav" alt-text="Sponsor 1" />
+          <Chip :logo="bavtc" alt-text="Sponsor 2" />
+        </div>
+      </div>
+
+      <div class="sponsor-section">
+        <h2 class="section-title">ĐƠN VỊ THỰC HIỆN</h2>
+        <div class="chips-row">
+          <Chip :logo="huyhieu" alt-text="Huy hiệu đoàn" />
+          <Chip :logo="hoisinhvien" alt-text="Hội Sinh viên Việt Nam" />
+          <Chip :logo="notback" alt-text="Logo Notback" />
         </div>
       </div>
 
       <div class="sponsor-section">
         <h2 class="section-title">BẢO TRỢ CHUYÊN MÔN</h2>
         <div class="chips-row">
-          <Chip logo="@/assets/logo6.png" alt-text="Expert Partner 1" />
-          <Chip logo="@/assets/logo7.png" alt-text="Expert Partner 2" />
+          <Chip :logo="btcmssc" alt-text="SSC" />
         </div>
       </div>
 
       <div class="sponsor-section">
         <h2 class="section-title">NHÀ TÀI TRỢ KIM CƯƠNG</h2>
         <div class="chips-row">
-          <Chip logo="@/assets/logo8.png" alt-text="Diamond Sponsor" />
-        </div>
-      </div>
-
-      <div class="sponsor-section">
-        <h2 class="section-title">NHÀ TÀI TRỢ BẠCH KIM</h2>
-        <div class="chips-row">
-          <Chip logo="@/assets/logo9.png" alt-text="Platinum Sponsor" />
+          <Chip :logo="nttkcshs" alt-text="SHS" />
         </div>
       </div>
 
       <div class="sponsor-section">
         <h2 class="section-title">NHÀ TÀI TRỢ VÀNG</h2>
         <div class="chips-row">
-          <Chip logo="@/assets/logo10.png" alt-text="Gold Sponsor" />
+          <Chip :logo="nttvlogo" alt-text="Logo New SD" />
         </div>
       </div>
+
+      <div class="sponsor-section">
+        <h2 class="section-title">NHÀ TÀI TRỢ BẠC</h2>
+        <div class="chips-row">
+          <Chip :logo="nttbblack" alt-text="Black Logo" />
+        </div>
+      </div>
+
+      <div class="sponsor-section">
+        <h2 class="section-title">NHÀ TÀI TRỢ ĐỒNG HÀNH</h2>
+        <div class="chips-row">
+          <Chip :logo="nttdhbtc" alt-text="BTC" />
+          <Chip :logo="nttdhmirae" alt-text="Mirae Asset" />
+          <Chip :logo="nttdhnextgen" alt-text="NextGen Edu" />
+        </div>
+      </div>
+
+      <div class="sponsor-section">
+        <h2 class="section-title">NHÀ TÀI TRỢ HIỆN VẬT</h2>
+        <div class="chips-row">
+          <Chip :logo="ntthv10edu" alt-text="10EDU" />
+          <Chip :logo="ntthvfidt" alt-text="FIDT" />
+          <Chip :logo="ntthvlogo2" alt-text="Logo2" />
+          <Chip :logo="ntthvdark" alt-text="Logo Dark" />
+          <Chip :logo="ntthvlogo" alt-text="Logô" />
+          <Chip :logo="ntthvmoneygain" alt-text="MoneyGain" />
+          <Chip :logo="ntthvypfp" alt-text="YPFP" />
+        </div>
+      </div>
+
+      <div class="sponsor-section">
+        <h2 class="section-title">NHÀ TÀI TRỢ NỀN TẢNG</h2>
+        <div class="chips-row">
+          <Chip :logo="nttntpintree" alt-text="Pinetree" />
+        </div>
+      </div>
+
+      <div class="sponsor-section">
+        <h2 class="section-title">HỖ TRỢ THỰC HIỆN</h2>
+        <div class="chips-row">
+          <Chip :logo="httt_scue" alt-text="Hỗ trợ thực hiện" />
+        </div>
+      </div>
+
+      <div class="sponsor-section">
+        <h2 class="section-title">BẢO TRỢ TRUYỀN THÔNG</h2>
+        <div class="chips-row">
+          <Chip :logo="bttt" alt-text="Báo trợ truyền thông" />
+        </div>
+      </div>
+
+      <div class="sponsor-section">
+        <h2 class="section-title">HỖ TRỢ TRUYỀN THÔNG</h2>
+        <div class="chips-row">
+          <Chip :logo="httt_scue" alt-text="Hỗ trợ truyền thông" />
+          <Chip :logo="httt_yecneu" alt-text="Hỗ trợ truyền thông" />
+          <Chip :logo="httt_st" alt-text="Hỗ trợ truyền thông" />
+          <Chip :logo="httt_ysc1" alt-text="Hỗ trợ truyền thông" />
+          <Chip :logo="httt_doiteam" alt-text="Hỗ trợ truyền thông" />
+          <Chip :logo="httt_sic" alt-text="Hỗ trợ truyền thông" />
+          <Chip :logo="httt_xanh" alt-text="Hỗ trợ truyền thông" />
+          <Chip :logo="httt_544918284" alt-text="Hỗ trợ truyền thông" />
+          <Chip :logo="httt_images" alt-text="Hỗ trợ truyền thông" />
+          <Chip :logo="fc" alt-text="Hỗ trợ truyền thông" />
+        </div>
+      </div>
+
+            <div class="sponsor-section">
+        <h2 class="section-title">BẢO TRỢ HÌNH ẢNH</h2>
+        <div class="chips-row">
+          <Chip :logo="btha" alt-text="Bảo trợ hình ảnh" />
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
 
 <script setup>
 import Chip from "@/components/Chip.vue";
+import bav from "@/assets/DVTC/BAV.png";
+import bavtc from "@/assets/DVTC/BAVTC.png";
+import huyhieu from "@/assets/dvth/Huy_Hiệu_Đoàn.png";
+import hoisinhvien from "@/assets/dvth/Logo-Hoi-Sinh-Vien-Viet-Nam.webp";
+import notback from "@/assets/dvth/LOGOnotback (1).png";
+import btcmssc from "@/assets/btcm/Logo_SSC (1).svg";
+import nttkcshs from "@/assets/NTTKC/SHS LOGO (1).webp";
+import nttvlogo from "@/assets/NTTV/Logo_New_SD_tren_nen_sang.png";
+import nttbblack from "@/assets/NTTB/black-logo.png";
+import nttdhbtc from "@/assets/NTTDH/BTC-logo-final-02.png";
+import nttdhmirae from "@/assets/NTTDH/Mirae Assets.png";
+import nttdhnextgen from "@/assets/NTTDH/NextGen Edu.jpg";
+import ntthv10edu from "@/assets/NTTHV/10EDU NGANG.png";
+import ntthvfidt from "@/assets/NTTHV/FIDT.jpg";
+import ntthvlogo2 from "@/assets/NTTHV/LOGO2 (2).png";
+import ntthvdark from "@/assets/NTTHV/logo_dark_2.png";
+import ntthvlogo from "@/assets/NTTHV/logô.jpg";
+import ntthvmoneygain from "@/assets/NTTHV/MoneyGain.jpg";
+import ntthvypfp from "@/assets/NTTHV/YPFP_logo_final.png";
+import nttntpintree from "@/assets/NTTNT/Logo-Pintree.png";
+import httt_scue from "@/assets/HTTT/Bản sao của [SCUE][LOGO].png";
+import httt_yecneu from "@/assets/HTTT/Bản sao của [YEC-NEU] LOGO-01 (1).png";
+import httt_st from "@/assets/HTTT/LogoST.jpg";
+import httt_ysc1 from "@/assets/HTTT/LogoYsc1png (2).png";
+import httt_doiteam from "@/assets/HTTT/LOGOĐỘI.png";
+import httt_sic from "@/assets/HTTT/SIC LOGO.png";
+import httt_xanh from "@/assets/HTTT/xanh.png";
+import httt_544918284 from "@/assets/HTTT/544918284_776130895020827_6895951067421847725_n.jpg";
+import httt_images from "@/assets/HTTT/images.png";
+import bttt from "@/assets/BTTT/LOGOBTTT.jpeg";
+import fc from "@/assets/HTTT/FC.png";
+import btha from "@/assets/BTHA/btha.jpg";
 </script>
 
 <style scoped>

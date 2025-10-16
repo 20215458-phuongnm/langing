@@ -35,7 +35,8 @@ defineProps({
 .chip {
   background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
   border-radius: 50px;
-  padding: 12px 24px;
+  padding: 12px 48px;
+  min-width: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,7 +52,7 @@ defineProps({
 }
 
 .chip-logo {
-  height: 24px;
+  height: 64px;
   width: auto;
   object-fit: contain;
   transition: all 0.3s ease;
@@ -71,7 +72,7 @@ defineProps({
 }
 
 .chip-container[data-size="medium"] .chip-logo {
-  height: 24px;
+  height: 64px;
 }
 
 .chip-container[data-size="large"] .chip {
@@ -79,17 +80,18 @@ defineProps({
 }
 
 .chip-container[data-size="large"] .chip-logo {
-  height: 32px;
+  height: 96px;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .chip {
-    padding: 10px 20px;
+    padding: 18px 32px;
+    min-width: 120px;
   }
 
   .chip-logo {
-    height: 20px;
+    height: 44px;
   }
 }
 </style>
