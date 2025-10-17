@@ -18,7 +18,7 @@
         <!-- Bottom: Action -->
         <div class="action-section">
           <v-btn
-            href="https://www.banlinhnhadautu.com/"
+            href="https://vong1.banlinhnhadautu.com/register"
             target="_blank"
             class="btn-register"
             color="#fbbf24"

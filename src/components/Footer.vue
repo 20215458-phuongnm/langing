@@ -19,7 +19,7 @@
 
         <!-- Nút đăng ký ngay -->
         <v-btn
-          href="https://www.banlinhnhadautu.com/"
+          href="https://vong1.banlinhnhadautu.com/register"
           target="_blank"
           class="footer-register-btn mb-3 sm:mt-0"
         >

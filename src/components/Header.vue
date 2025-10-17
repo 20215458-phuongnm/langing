@@ -42,7 +42,7 @@
           </li>
           <li>
             <v-btn
-              href="https://www.banlinhnhadautu.com/"
+              href="https://vong1.banlinhnhadautu.com/register"
               target="_blank"
               class="btn-register"
               variant="flat"
@@ -123,7 +123,7 @@
         </li>
         <li class="pt-2">
           <v-btn
-            href="https://www.banlinhnhadautu.com/"
+            href="https://vong1.banlinhnhadautu.com/register"
             target="_blank"
             class="btn-register inline-block"
             @click="closeMobileMenu"
