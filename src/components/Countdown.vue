@@ -7,7 +7,7 @@
         <!-- Top: Countdown -->
         <div class="countdown-section">
           <Countdown
-            deadlineISO="2025-10-30T00:00:00+07:00"
+            deadlineISO="2025-10-31T00:00:00+07:00"
             :interval="1000"
             mainColor="#fff"
             secondFlipColor="#fff"
