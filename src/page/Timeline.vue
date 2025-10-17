@@ -228,7 +228,7 @@ Top 50 thí sinh có điểm số cao nhất sẽ bước tiếp vào Vòng 3 - 
     title: "VÒNG 3",
     description: "THỬ THÁCH CHUYÊN SÂU",
     timeframe: "THỬ THÁCH CHUYÊN SÂU (THỜI GIAN: 5/11/2025 - 16/11/2025)",
-    detail: `THỬ THÁCH THỊ TRƯỜNG (5/11/2025 - 17/11/2025)
+    detail: `THỬ THÁCH THỊ TRƯỜNG (5/11/2025 - 16/11/2025)
 Mỗi thí sinh được cấp Nhóm giao dịch giả lập từng Stock123 của CTCP Chứng khoán Pinetree, thực hiện đặt lệnh trực tuyến quy chế do Ban tổ chức công bố. Sau khi kết thúc, thí sinh có kết quả giao dịch tốt nhất sẽ nhận quà tặng và giấy chứng nhận.
 
 THỬ THÁCH NHÓM (16/11/2025)
