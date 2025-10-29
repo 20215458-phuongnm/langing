@@ -2,40 +2,52 @@
   <section ref="sectionElement" class="relative w-full py-16 px-4 md:px-16">
     <!-- Title component -->
     <div class="flex justify-center mb-5">
-       <Title text="VỀ CLB SEC" />
+      <Title text="VỀ KHOA TÀI CHÍNH" fontSize="22px" />
     </div>
     <!-- Content with full-width background strip -->
     <div class="relative">
       <!-- Full-width background strip -->
       <div
-        class="absolute inset-0 w-screen left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#214159] via-[#214159]/40 to-[#214159]/20 backdrop-blur-sm"
+        class="absolute inset-0 w-screen left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#214159]/20 via-[#214159]/40 to-[#214159] backdrop-blur-sm"
       ></div>
 
       <!-- Content positioned over background -->
       <div
         class="relative z-10 flex flex-col md:flex-row items-center gap-8 py-8 min-h-[400px] md:min-h-[300px]"
       >
-        <!-- Text content -->
-        <div
-          ref="textElement"
-          class="md:w-1/2 md:ml-16 text-white text-base md:text-lg leading-relaxed flex items-center text-center md:text-left animate-element"
-          :class="{ 'animate-visible': isVisible }"
-        >
-          <div>
-            Câu lạc bộ Chứng khoán Học viện Ngân hàng - SEC (Securities Club) là một trong những câu lạc bộ lâu đời và có tầm ảnh hưởng nhất Học viện Ngân hàng. Với thông điệp "Phát huy sức trẻ, Chia sẻ tầm nhìn", trải qua 18 năm hình thành, phát triển, SEC tự hào là tổ chức sinh viên mang tính biểu tượng của Học viện Ngân hàng, đem lại cho các bạn sinh viên những trải nghiệm và giá trị khó quên. Bằng nhiều sự kiện và chương trình mang tính thương hiệu, ứng dụng cao trong thực tế, đặc biệt là với 14 năm gắn bó và phát triển cùng Cuộc thi “Bản lĩnh Nhà đầu tư”, SEC tự hào và hứa hẹn sẽ là một điểm đến, cầu nối đáng tin cậy của các bạn sinh viên và chuyên gia trong ngành Kinh tế - Tài chính - Chứng khoán trên toàn quốc.
-          </div>
-        </div>
         <!-- Image -->
         <div
           ref="imageElement"
-          class="md:w-1/2 md:mr-13 flex justify-center animate-element animate-delay"
+          class="md:w-1/2 md:ml-13 flex justify-center animate-element"
           :class="{ 'animate-visible': isVisible }"
         >
           <img
-            src="@/assets/aboutus.png"
+            src="@/assets/NTQ08842.jpeg"
             alt="About Us"
-            class="w-full rounded-lg shadow-lg"
+            class="w-5/6 rounded-lg shadow-lg my-12 mb-1"
           />
+        </div>
+        <!-- Text content -->
+        <div
+          ref="textElement"
+          class="md:w-1/2 md:mr-20 text-white text-base md:text-lg leading-relaxed flex items-center text-center md:text-left animate-element animate-delay"
+          :class="{ 'animate-visible': isVisible }"
+        >
+          <div>
+            Khoa Tài chính – Học viện Ngân hàng là một trong những đơn vị dẫn
+            đầu về quy mô và chất lượng đào tạo tại Học viện. Với bề dày truyền
+            thống cùng đội ngũ giảng viên giàu kinh nghiệm, Khoa Tài chính không
+            ngừng khẳng định vị thế là cái nôi đào tạo nguồn nhân lực chất lượng
+            cao trong nhiều lĩnh vực. Thông qua các sự kiện học thuật, tọa đàm
+            chuyên môn và cuộc thi chuyên ngành, Khoa Tài chính luôn giữ vững sứ
+            mệnh gắn kết tri thức học thuật với thực tiễn nghề nghiệp, giúp sinh
+            viên phát huy năng lực, bản lĩnh và tư duy tài chính. Sau nhiều năm
+            gắn bó, đồng hành Cuộc thi “Bản lĩnh Nhà đầu tư” từ những mùa đầu
+            tiên và đặc biệt năm nay với vai trò là 1 trong những Đơn vị tổ
+            chức, Khoa Tài chính đã góp phần khẳng định vai trò của mình trong
+            việc nuôi dưỡng tư duy tài chính, khơi dậy đam mê đầu tư và tạo dựng
+            một sân chơi học thuật ý nghĩa dành cho sinh viên trên toàn quốc.
+          </div>
         </div>
       </div>
     </div>

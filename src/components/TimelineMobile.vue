@@ -154,9 +154,8 @@
               <div class="mb-3 w-full max-w-[320px]">
                 <h2
                   class="text-[#dffbff] text-base font-bold mb-2 text-left transition-all duration-300 ease-in-out transform bg-gradient-to-r from-[#dffbff] to-[#87ceeb] bg-clip-text text-transparent drop-shadow-sm"
-                >
-                  {{ rounds[selectedRound].timeframe.toUpperCase() }}
-                </h2>
+                  v-html="formattedTimeframe"
+                ></h2>
                 <div
                   class="w-16 h-0.5 bg-gradient-to-r from-[#dffbff] to-transparent rounded-full"
                 ></div>
@@ -182,14 +181,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, computed } from "vue";
 import backgroundImage from "@/assets/back.png";
 
 const rounds = ref([
   {
     title: "VÒNG 1",
     description: "TEST ONLINE",
-    timeframe: "TEST ONLINE (THỜI GIAN: 17/10/2025 - 30/10/2025)",
+    timeframe: "TEST ONLINE (THỜI GIAN: 31/10/2025 - 14/11/2025)",
     detail: `Thí sinh sẽ làm bài thi trắc nghiệm trực tuyến trên Website của Ban Tổ Chức.
 Bài thi gồm 20 câu trắc nghiệm về các lĩnh vực Kinh tế, Tài chính, Chứng khoán... Ở mỗi câu hỏi, các thí sinh chỉ được lựa chọn 01 đáp án duy nhất.
 
@@ -202,7 +201,7 @@ Top 300 thí sinh có điểm số cao nhất sẽ bước tiếp vào Vòng 2 -
   {
     title: "VÒNG 2",
     description: "TEST SƠ LOẠI",
-    timeframe: "TEST SƠ LOẠI (THỜI GIAN: 2/11/2025)",
+    timeframe: "TEST SƠ LOẠI (THỜI GIAN: 16/11/2025)",
     detail: `Thí sinh sẽ trải qua 01 bài thi trên giấy trực tiếp gồm 02 phần thi với hình thức thi Trắc nghiệm và Tự luận.
 
 Tổng điểm bài thi: 100 điểm
@@ -214,17 +213,18 @@ Top 50 thí sinh có điểm số cao nhất sẽ bước tiếp vào Vòng 3 - 
   {
     title: "VÒNG 3",
     description: "THỬ THÁCH CHUYÊN SÂU",
-    timeframe: "THỬ THÁCH CHUYÊN SÂU (THỜI GIAN: 5/11/2025 - 16/11/2025)",
-    detail: `THỬ THÁCH THỊ TRƯỜNG (5/11/2025 - 17/11/2025)
-Mỗi thí sinh được cấp Nhóm giao dịch giả lập từng Stock123 của CTCP Chứng khoán Pinetree, thực hiện đặt lệnh trực tuyến quy chế do Ban tổ chức công bố. Sau khi kết thúc, thí sinh có kết quả giao dịch tốt nhất sẽ nhận quà tặng và giấy chứng nhận.
+    timeframe: "THỬ THÁCH CHUYÊN SÂU (THỜI GIAN: 19/11/2025 - 30/11/2025)",
+    detail: `THỬ THÁCH THỊ TRƯỜNG (19/11/2025 - 28/11/2025)
+Mỗi thí sinh được cấp tài khoản giao dịch giả lập qua ứng dụng Stock 123 của CTCP Chứng khoán Pinetree, thực hiện đặt lệnh trực tuyến theo quy chế do Ban tổ chức công bố. Sau khi kết thúc, thí sinh có kết quả giao dịch tốt nhất sẽ nhận quà tặng và giấy chứng nhận.
 
-THỬ THÁCH NHÓM (16/11/2025)
-Top 50 thí sinh sẽ được chia thành 10 đội thi giải Case-study theo vòng thi thử thách thị trường. Sau đó, các nhóm sẽ phải hoàn thiện phần bài hoàn chỉnh trong vòng 02 tuần và trình bày lời giải, phần biện với team đối thủ do BTC bốc thăm và Ban Giám khảo.`,
+THỬ THÁCH NHÓM (30/11/2025)
+Top 50 thí sinh sẽ được chia thành 10 đội thi giải Case-study theo vòng thi thử thách thị trường. Sau đó, các nhóm sẽ phải hoàn thiện phần bài hoàn chỉnh trong vòng 02 tuần và trình bày lời giải, phản biện với team đối thủ do BTC bốc thăm và Ban Giám khảo.`,
   },
   {
     title: "VÒNG 4",
     description: "THUYẾT TRÌNH PHÂN TÍCH\nCƠ HỘI ĐẦU TƯ",
-    timeframe: "Thuyết trình phân tích cơ hội đầu tư (THỜI GIAN: 07/12/2025)",
+    timeframe:
+      "Thuyết trình phân tích cơ hội đầu tư (THỜI GIAN: 01/12/2025 - 11/01/2026)",
     detail: `Top 16 thí sinh sẽ được Ban tổ chức chia thành các cặp (thông tin về người cùng cặp sẽ được Ban tổ chức thông báo trước để thí sinh chuẩn bị) để thuyết trình trước hội đồng Ban Giám khảo về danh mục đầu tư của mình. Các thí sinh sẽ trả lời các câu hỏi từ thí sinh cùng cặp và tư phía Ban Giám khảo trong một khoảng thời gian quy định.
 
 Hình thức thi: Cá nhân.`,
@@ -232,8 +232,8 @@ Hình thức thi: Cá nhân.`,
   {
     title: "VÒNG 5",
     description: "CHUNG KẾT",
-    timeframe: "GALA NIGHT (THỜI GIAN: 16/01/2026)",
-    detail: `Top 5 thí sinh xuất sắc nhất sẽ trải qua Vòng Chung kết được sắn khấu hóa để tìm ra Quán quân của Cuộc thi Bản lĩnh Nhà đầu tư 2025`,
+    timeframe: "GALA NIGHT (THỜI GIAN: 28/01/2026)",
+    detail: `Top 5 thí sinh xuất sắc nhất sẽ trải qua Vòng Chung kết được sân khấu hóa để tìm ra Quán quân của Cuộc thi Bản lĩnh Nhà đầu tư 2025.`,
   },
 ]);
 
@@ -242,6 +242,16 @@ const selectedRound = ref(0); // mặc định Vòng 1
 const selectRound = (index) => {
   selectedRound.value = index;
 };
+
+// Format timeframe so parenthetical time appears on a new line
+const formattedTimeframe = computed(() => {
+  const tf = (rounds.value[selectedRound.value] || {}).timeframe || "";
+  const idx = tf.indexOf("(");
+  if (idx > 0) {
+    return (tf.slice(0, idx).trim() + "<br>" + tf.slice(idx)).toUpperCase();
+  }
+  return tf.toUpperCase();
+});
 
 // Touch/Swipe functionality
 let touchStartX = 0;

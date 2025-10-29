@@ -11,15 +11,9 @@
         <h2 class="section-title">ĐƠN VỊ TỔ CHỨC</h2>
         <div class="chips-row">
           <Chip :logo="bav" alt-text="Sponsor 1" />
-          <Chip :logo="bavtc" alt-text="Sponsor 2" />
-        </div>
-      </div>
-
-      <div class="sponsor-section">
-        <h2 class="section-title">ĐƠN VỊ THỰC HIỆN</h2>
-        <div class="chips-row">
           <Chip :logo="huyhieu" alt-text="Huy hiệu đoàn" />
           <Chip :logo="hoisinhvien" alt-text="Hội Sinh viên Việt Nam" />
+          <Chip :logo="bavtc" alt-text="Sponsor 2" />
           <Chip :logo="notback" alt-text="Logo Notback" />
         </div>
       </div>
@@ -49,6 +43,13 @@
         <h2 class="section-title">NHÀ TÀI TRỢ BẠC</h2>
         <div class="chips-row">
           <Chip :logo="nttbblack" alt-text="Black Logo" />
+        </div>
+      </div>
+
+       <div class="sponsor-section">
+        <h2 class="section-title">NHÀ TÀI ĐỒNG</h2>
+        <div class="chips-row">
+          <Chip :logo="money" alt-text="NTTĐ" />
         </div>
       </div>
 
@@ -130,32 +131,33 @@ import huyhieu from "@/assets/DVTH/Huy_Hiệu_Đoàn.png";
 import hoisinhvien from "@/assets/DVTH/Logo-Hoi-Sinh-Vien-Viet-Nam.webp";
 import notback from "@/assets/DVTH/LOGOnotback (1).png";
 import btcmssc from "@/assets/BTCM/Logo_SSC (1).svg";
-import nttkcshs from "@/assets/NTTKC/SHS LOGO (1).webp";
-import nttvlogo from "@/assets/NTTV/Logo_New_SD_tren_nen_sang.png";
+import nttkcshs from "@/assets/NTTKC/3. LOGO SHS.png";
+import nttvlogo from "@/assets/NTTV/4. LOGO MBS.png";
 import nttbblack from "@/assets/NTTB/black-logo.png";
-import nttdhbtc from "@/assets/NTTDH/BTC-logo-final-02.png";
-import nttdhmirae from "@/assets/NTTDH/Mirae Assets.png";
+import nttdhbtc from "@/assets/NTTDH/7. LOGO BAO TIN.png";
+import nttdhmirae from "@/assets/NTTDH/7. LOGO MIRAE ASSETS.png";
 import nttdhnextgen from "@/assets/NTTDH/NextGen Edu.jpg";
 import ntthv10edu from "@/assets/NTTHV/10EDU NGANG.png";
 import ntthvfidt from "@/assets/NTTHV/FIDT.jpg";
 import ntthvlogo2 from "@/assets/NTTHV/LOGO2 (2).png";
-import ntthvdark from "@/assets/NTTHV/logo_dark_2.png";
+import ntthvdark from "@/assets/NTTHV/8. LOGO XNO.png";
 import ntthvlogo from "@/assets/NTTHV/logô.jpg";
-import ntthvmoneygain from "@/assets/NTTHV/MoneyGain.jpg";
-import ntthvypfp from "@/assets/NTTHV/YPFP_logo_final.png";
+import ntthvmoneygain from "@/assets/NTTHV/8. LOGO MONEYGAIN.jpg";
+import ntthvypfp from "@/assets/NTTHV/8. LOGO YPFP.png";
 import nttntpintree from "@/assets/NTTNT/Logo-Pintree.png";
-import httt_scue from "@/assets/HTTT/Bản sao của [SCUE][LOGO].png";
+import httt_scue from "@/assets/HTTT/10 và 12. LOGO SCUE.png";
 import httt_yecneu from "@/assets/HTTT/Bản sao của [YEC-NEU] LOGO-01 (1).png";
 import httt_st from "@/assets/HTTT/LogoST.jpg";
 import httt_ysc1 from "@/assets/HTTT/LogoYsc1png (2).png";
 import httt_doiteam from "@/assets/HTTT/LOGOĐỘI.png";
 import httt_sic from "@/assets/HTTT/SIC LOGO.png";
 import httt_xanh from "@/assets/HTTT/xanh.png";
-import httt_544918284 from "@/assets/HTTT/544918284_776130895020827_6895951067421847725_n.jpg";
+import httt_544918284 from "@/assets/HTTT/12. LOGO NSC.jpg";
 import httt_images from "@/assets/HTTT/images.png";
-import bttt from "@/assets/BTTT/LOGOBTTT.jpeg";
+import bttt from "@/assets/BTTT/11. LOGO BTTT.jpg";
 import fc from "@/assets/HTTT/FC.png";
 import btha from "@/assets/BTHA/btha.jpg";
+import money from "@/assets/NTTD/6. NHÀ TÀI TRỢ ĐỒNG.png";
 </script>
 
 <style scoped>

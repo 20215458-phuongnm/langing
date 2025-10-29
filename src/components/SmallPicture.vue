@@ -64,8 +64,8 @@ const activities = {
   presentation: {
     title: "PRESENTATION",
     description:
-      "TOP 16 thể hiện bản lĩnh trước Hội đồng giám khảo bằng phần thuyết trình về một cơ hội đầu tư tại Ủy ban Chứng khoán Nhà nước – nơi mỗi ý tưởng có thể trở thành dấu ấn riêng.",
-    subtitle: "THUYẾT TRÌNH TẠI UBCKNN",
+      "TOP 16 thể hiện bản lĩnh trước Hội đồng giám khảo bằng phần thuyết trình về một cơ hội đầu tư tại Sở Giao dịch Chứng khoán Hà Nội – nơi mỗi ý tưởng có thể trở thành dấu ấn riêng.",
+    subtitle: "THUYẾT TRÌNH TẠI SỞ GIAO DỊCH CHỨNG KHOÁN HÀ NỘI",
     image: S2,
   },
   gala: {

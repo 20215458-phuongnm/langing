@@ -50,6 +50,9 @@
         <div class="horizontal-wrapper">
           <div class="horizontal-inner">
             <section class="horizontal-item">
+              <AboutKhoa />
+            </section>
+            <section class="horizontal-item">
               <AboutUs />
             </section>
             <section class="horizontal-item">
@@ -60,6 +63,9 @@
 
         <!-- Mobile vertical stack -->
         <div class="mobile-vertical-stack md:hidden">
+          <section class="mobile-section">
+            <AboutKhoa />
+          </section>
           <section class="mobile-section">
             <AboutUs />
           </section>
@@ -147,6 +153,7 @@ import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 import Countdown from "./components/Countdown.vue";
 import Blndt from "./components/Blndt.vue";
+import AboutKhoa from "./page/AboutKhoa.vue";
 import AboutUs from "./page/AboutUs.vue";
 import AboutContest from "./page/AboutContest.vue";
 import Prize from "./components/Prize.vue";

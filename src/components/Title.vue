@@ -15,7 +15,13 @@
     <!-- Chữ overlay với font size cố định -->
     <h2
       class="absolute inset-0 flex items-center justify-center text-white font-bold title-text -mt-1"
-      style="font-size: 28px; z-index: 10"
+      :style="{
+        fontSize:
+          typeof props.fontSize === 'number'
+            ? props.fontSize + 'px'
+            : props.fontSize,
+        zIndex: 10,
+      }"
     >
       {{ props.text }}
     </h2>
@@ -29,6 +35,10 @@ const props = defineProps({
   text: {
     type: String,
     default: "VỀ CHÚNG TÔI",
+  },
+  fontSize: {
+    type: [String, Number],
+    default: "28px",
   },
 });
 

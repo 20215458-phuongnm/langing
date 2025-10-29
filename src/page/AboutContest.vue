@@ -34,15 +34,7 @@
           :class="{ 'animate-visible': isVisible }"
         >
           <div>
-            Bản lĩnh Nhà đầu tư - cuộc thi đầu tiên và duy nhất tại Học viện
-            Ngân hàng và là một trong những cuộc thi lớn nhất về lĩnh vực Kinh
-            tế - Tài chính - Chứng khoán dành cho sinh viên toàn quốc. Cuộc thi
-            tự hào về hành trình hơn một thập kỷ xây dựng, phát triển, đánh thức
-            giá trị cốt lõi trong mỗi bạn sinh viên, mang đến những giá trị toàn
-            diện cho các bạn trẻ và doanh nghiệp. Trở lại với dấu mốc 14 năm,
-            Bản lĩnh Nhà đầu tư 2025 đem đến những trải nghiệm chuyên sâu và
-            thực tế, tiếp nối thành công của các mùa trước và hứa hẹn sẽ bùng nổ
-            hơn với sự tranh tài của hàng ngàn thí sinh đến từ mọi miền Tổ quốc.
+            Bản lĩnh Nhà đầu tư - cuộc thi dành cho sinh viên toàn quốc, là một trong những cuộc thi lớn nhất về lĩnh vực Kinh tế - Tài chính - Chứng khoán tại khu vực miền Bắc nói chung và tại Học viện Ngân hàng nói riêng. Cuộc thi tự hào về hành trình hơn một thập kỷ xây dựng, phát triển, đánh thức giá trị cốt lõi trong mỗi bạn sinh viên, mang đến những giá trị toàn diện cho các bạn trẻ và doanh nghiệp. Trở lại với dấu mốc 14 năm, Bản lĩnh Nhà đầu tư 2025 đem đến những trải nghiệm chuyên sâu và thực tế, tiếp nối thành công của các mùa trước và hứa hẹn sẽ bùng nổ hơn với sự tranh tài của hàng ngàn thí sinh đến từ mọi miền Tổ quốc.
           </div>
         </div>
       </div>
