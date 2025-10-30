@@ -169,7 +169,7 @@ const scrollToAboutContest = () => {
       // Need to scroll deeper into the horizontal section to trigger AboutContest
       const rect = horizontalSection.getBoundingClientRect();
       const sectionHeight = horizontalSection.offsetHeight;
-      const scrollTop = window.pageYOffset + rect.top + sectionHeight * 0.5;
+      const scrollTop = window.pageYOffset + rect.top + sectionHeight * 0.8;
 
       window.scrollTo({
         top: scrollTop,
