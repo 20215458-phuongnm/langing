@@ -35,7 +35,7 @@
       <div class="sponsor-section">
         <h2 class="section-title">NHÀ TÀI TRỢ VÀNG</h2>
         <div class="chips-row">
-          <Chip :logo="nttvlogo" alt-text="Logo New SD" />
+          <Chip class="small-chip" :logo="nttvlogo" alt-text="Logo New SD" />
         </div>
       </div>
 
@@ -46,10 +46,10 @@
         </div>
       </div>
 
-       <div class="sponsor-section">
+      <div class="sponsor-section">
         <h2 class="section-title">NHÀ TÀI ĐỒNG</h2>
         <div class="chips-row">
-          <Chip :logo="money" alt-text="NTTĐ" />
+          <Chip class="small-chip" :logo="money" alt-text="NTTĐ" />
         </div>
       </div>
 
@@ -112,13 +112,12 @@
         </div>
       </div>
 
-            <div class="sponsor-section">
+      <div class="sponsor-section">
         <h2 class="section-title">BẢO TRỢ HÌNH ẢNH</h2>
         <div class="chips-row">
           <Chip :logo="btha" alt-text="Bảo trợ hình ảnh" />
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -427,5 +426,15 @@ import money from "@/assets/NTTD/6. NHÀ TÀI TRỢ ĐỒNG.png";
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Small override for a single Chip instance (NTTĐ) */
+/* ::v-deep .small-chip .chip {
+  padding: 8px 20px !important;
+  min-width: 120px !important;
+} */
+
+::v-deep .small-chip .chip-logo {
+  height: 60px !important;
 }
 </style>

@@ -24,7 +24,7 @@
           <img
             src="@/assets/NTQ08842.jpeg"
             alt="About Us"
-            class="w-5/6 rounded-lg shadow-lg my-12 mb-1"
+            class="w-5/6 rounded-lg shadow-lg my-14 mb-1"
           />
         </div>
         <!-- Text content -->
