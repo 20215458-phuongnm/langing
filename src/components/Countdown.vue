@@ -7,7 +7,7 @@
         <!-- Top: Countdown -->
         <div class="countdown-section">
           <Countdown
-            deadlineISO="2025-10-31T00:00:00+07:00"
+            deadlineISO="2025-11-15T00:00:00+07:00"
             :interval="1000"
             mainColor="#fff"
             secondFlipColor="#fff"
@@ -39,8 +39,8 @@
 import { ref, onMounted, onUnmounted } from "vue";
 import { Countdown } from "vue3-flip-countdown";
 
-// Thời gian đích: 0h ngày 10/10/2025
-const targetDate = new Date(2025, 9, 10, 0, 0, 0); // Tháng 9 = October (tháng bắt đầu từ 0)
+// Thời gian đích: 0h ngày 17/11/2025
+const targetDate = new Date(2025, 10, 17, 0, 0, 0);
 
 // Convert to timestamp for vue3-flip-countdown
 const targetTimestamp = targetDate.getTime();
