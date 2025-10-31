@@ -47,7 +47,7 @@
       </div>
 
       <div class="sponsor-section">
-        <h2 class="section-title">NHÀ TÀI ĐỒNG</h2>
+        <h2 class="section-title">NHÀ TÀI TRỢ ĐỒNG</h2>
         <div class="chips-row">
           <Chip class="small-chip" :logo="money" alt-text="NTTĐ" />
         </div>
