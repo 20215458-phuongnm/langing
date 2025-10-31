@@ -35,18 +35,17 @@
         >
           <div>
             Khoa Tài chính – Học viện Ngân hàng là một trong những đơn vị dẫn
-            đầu về quy mô và chất lượng đào tạo tại Học viện. Với bề dày truyền
+            đầu về quy mô và chất lượng đào tạo tại Học Viện. Với bề dày truyền
             thống cùng đội ngũ giảng viên giàu kinh nghiệm, Khoa Tài chính không
             ngừng khẳng định vị thế là cái nôi đào tạo nguồn nhân lực chất lượng
-            cao trong nhiều lĩnh vực. Thông qua các sự kiện học thuật, tọa đàm
-            chuyên môn và cuộc thi chuyên ngành, Khoa Tài chính luôn giữ vững sứ
-            mệnh gắn kết tri thức học thuật với thực tiễn nghề nghiệp, giúp sinh
-            viên phát huy năng lực, bản lĩnh và tư duy tài chính. Sau nhiều năm
-            gắn bó, đồng hành Cuộc thi “Bản lĩnh Nhà đầu tư” từ những mùa đầu
-            tiên và đặc biệt năm nay với vai trò là 1 trong những Đơn vị tổ
-            chức, Khoa Tài chính đã góp phần khẳng định vai trò của mình trong
-            việc nuôi dưỡng tư duy tài chính, khơi dậy đam mê đầu tư và tạo dựng
-            một sân chơi học thuật ý nghĩa dành cho sinh viên trên toàn quốc.
+            cao trong lĩnh vực Tài chính - Ngân hàng. Thông qua các hội thảo,
+            tọa đàm chuyên môn và các cuộc thi học thuật, Khoa Tài chính luôn
+            giữ vững sứ mệnh gắn kết kiến thức lý thuyết với thực tiễn, giúp
+            sinh viên phát huy năng lực, rèn luyện kỹ năng và tư duy thực hành
+            nghề nghiệp. Cuộc thi "Bản lĩnh Nhà đầu tư" là một trong các cuộc
+            thi học thuật đã gắn bó với Khoa Tài chính nhiều năm, trở thành một
+            sân chơi trí tuệ, khơi dậy đam mê đầu tư và rèn luyện bản lĩnh dành
+            cho sinh viên trên toàn quốc.
           </div>
         </div>
       </div>
